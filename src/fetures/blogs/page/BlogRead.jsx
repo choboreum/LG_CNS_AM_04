@@ -1,8 +1,10 @@
 import styled, { keyframes } from "styled-components";
 import Button from "../../../component/ui/Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import TextInput from "../ui/TextInput";
 import BlogCommentList from "../list/BlogCommentList";
+import { useEffect, useState } from "react";
+import api from "../../../api/axios";
 
 const Wrapper = styled.div`
     padding: 16px;
@@ -69,6 +71,49 @@ const WelcomeMessage = styled.div`
 `;
 
 const BlogRead = () => {
+  // useParams : url에서 전달되는 파라미터를 전달 받을 수 있는 hook
+  const {id} = useParams();
+  console.log("content params : ", id);
+
+  const [blog, setBlog] = useState({});
+  const [comments, setComments] = useState([]);
+
+  const getBlog = async() =>{
+    /**
+     * 1. queryString : http://id:port/blogs?id=xxxx
+     *  api.get(`/blogs?id=${id}`)
+     *  api.get(`/blogs`, {
+     *    params{
+     *      id : id
+     *    }
+     *  })
+     * 2. path variable : http://id:port/blogs?id=xxxx
+     *  api.get(`/blogs/${id}`)
+     *  - embed를 이용해서 특정블로그의 comments를 함께 가져와본다면
+     *  api.get(`/blogs/${id}?_embed=comments`)
+     */
+    await api.get(`/blogs/${id}`)
+      .then((response)=>{ // 데이터를 가져온 후 해당 데이터를 state로 변경
+        console.log(response);
+        console.log(response.data);
+
+        setBlog({
+          id: response.data.id,
+          title: response.data.title,
+          content: response.data.content,
+        })
+
+        setComments(response.data.comments || []); // 댓글이 없는 경우를 위해 비어있는 배열 추가
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+  }
+
+  useEffect(() => {
+    getBlog()
+  }, []);
+
   const moveUrl = useNavigate();
   return (
     <Wrapper>
@@ -76,13 +121,13 @@ const BlogRead = () => {
         <Button title={'메인으로'} onClick={() => moveUrl('/blog/index')} />
 
         <PostContainer>
-          <TitleText>TITLE</TitleText>
-          <ContentText>CONTENT</ContentText>
+          <TitleText>{blog.title}</TitleText>
+          <ContentText>{blog.content}</ContentText>
         </PostContainer>
 
         {/* 블로그 댓글 설계 필요 */}
         <CommentLabel>작성된 댓글</CommentLabel>
-        <BlogCommentList />
+        <BlogCommentList comments={comments} />
 
         <TextInput height={15} />
 

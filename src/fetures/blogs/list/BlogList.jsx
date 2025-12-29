@@ -14,7 +14,7 @@ const Wrapper = styled.div`
     }
 `
 
-const BlogList = (props) => {
+const BlogList = (props) => {    
     const moveUrl = useNavigate();
     return (
         <Wrapper 

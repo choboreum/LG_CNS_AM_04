@@ -3,7 +3,19 @@
     {
       "id": 1,
       "title": "타이틀 1 입니다",
-      "content": "컨텐츠 1 입니다"
+      "content": "컨텐츠 1 입니다",
+      "comments" : [
+        {
+          "commentId" : 1,
+          "content" : "재밌어용!",
+          "id" : 1
+        },
+        {
+          "commentId" : 2,
+          "content" : "어려워용!",
+          "id" : 1
+        }
+      ]
     },
     {
       "id": 2,
