@@ -1,0 +1,133 @@
+import React, { useState } from "react";
+import styled from "styled-components";
+import api from "../../../api/axios";
+import { Link, useNavigate } from "react-router-dom";
+
+// Container
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f2f5;
+`;
+
+// Form Box
+const FormWrapper = styled.div`
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  width: 350px;
+`;
+
+// Title
+const Title = styled.h2`
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+`;
+
+// Input
+const Input = styled.input`
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+
+  &:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0,123,255,0.3);
+  }
+`;
+
+// Button
+const Button = styled.button`
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+
+  &:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+  }
+`;
+
+// Link
+const TextLink = styled(Link)`
+  display: block;
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #007bff;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const SignIn = () =>{
+    const [form, setForm] = useState({
+        email : '',
+        password : '',
+    })
+
+    const handlerChange = (e) => {
+        const {name, value} = e.target; //e.target.name, e.target.value
+
+        setForm({...form, [name] : value}) //스프레스 연산자를 사용하는 이유, form의 변수를 그대로 사용하기 위해
+                                            //복사한 form에게 name의 value값을 전달
+    }
+
+    
+    const moveUrl = useNavigate();
+
+    const handlerSubmit = async(e) =>{
+        e.preventDefault();
+        try{
+            const response = await api.get("/users", {
+                params : {
+                    email : form.email,
+                    password : form.password,
+                }
+            })
+            console.log(response)
+            moveUrl('/blog/index');
+        } catch(err) {
+
+        }
+    }
+    return(
+        <>
+            <Container>
+                <FormWrapper>
+                    <Title>로그인</Title>
+                    <form onSubmit={handlerSubmit}>
+                        <Input type="email" name="email" onChange={handlerChange} placeholder="email" />
+                        <Input type="password" name="password" onChange={handlerChange} placeholder="password" />
+                        <Button type="submit">login</Button>
+                    </form>
+                    <TextLink>비밀번호를 잊으셨나요?</TextLink>
+                    <TextLink to={'/'}>회원가입</TextLink>
+                </FormWrapper>
+            </Container>
+        </>
+    )
+}
+
+export default SignIn;
