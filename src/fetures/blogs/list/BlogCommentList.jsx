@@ -16,7 +16,7 @@ const BlogCommentList = ({comments}) => {
         {
             comments.map( (comment, i) => {
                 return(
-                    <BlogCommentItem key={comment.commentId} comment={comment} />
+                    <BlogCommentItem key={comment.id} comment={comment} />
                 )
             })
         }
@@ -24,4 +24,4 @@ const BlogCommentList = ({comments}) => {
   )
 }
 
-export default BlogCommentList
+export default BlogCommentList;

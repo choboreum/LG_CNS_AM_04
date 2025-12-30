@@ -76,7 +76,8 @@ const BlogRead = () => {
   console.log("content params : ", id);
 
   const [blog, setBlog] = useState({});
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState([]); //작성된 댓글들에 관련된 변수
+  const [comment, setComment] = useState(''); //작성 후 등록해야 할 댓글에 관련된 변수
 
   const getBlog = async() =>{
     /**
@@ -92,7 +93,8 @@ const BlogRead = () => {
      *  - embed를 이용해서 특정블로그의 comments를 함께 가져와본다면
      *  api.get(`/blogs/${id}?_embed=comments`)
      */
-    await api.get(`/blogs/${id}`)
+    //await api.get(`/blogs/${id}`)
+    await api.get(`/blogs/${id}?_embed=comments`)
       .then((response)=>{ // 데이터를 가져온 후 해당 데이터를 state로 변경
         console.log(response);
         console.log(response.data);
@@ -103,7 +105,7 @@ const BlogRead = () => {
           content: response.data.content,
         })
 
-        setComments(response.data.comments || []); // 댓글이 없는 경우를 위해 비어있는 배열 추가
+        setComments(response.data.comments); // 댓글이 없는 경우를 위해 비어있는 배열 추가
       })
       .catch((err)=>{
         console.log(err)
@@ -115,6 +117,46 @@ const BlogRead = () => {
   }, []);
 
   const moveUrl = useNavigate();
+
+/**
+ * 전달받은 인자를 axios를 이용해서 db.json comments에 등록하고
+ * 메인페이지로 이동이 아닌, 현재 페이지(상세보기) 내부에서 댓글 등록이 되면서 갱신 후 리랜더링
+ */
+
+
+  const commentHandler = async(blogId, content) => { //댓글 입력 핸들러
+    console.log(blogId, content)
+    await api.post('comments',{
+        id : Date.now(),
+        content : content,
+        blogId : blogId,
+      })
+      .then((response)=>{ // 데이터를 가져온 후 해당 데이터를 state로 변경
+        console.log(response);
+        console.log(response.data);
+
+        /* //아래 두 함수로 사용하자면, 기능 구현은 가능은 하지만 전체 렌더링이 되는 방법이므로 지양하는 방법은 아니다.
+        getBlog();
+        setComment(''); */ 
+
+
+        // 부분 리랜더링을 위한 기본패턴(response.data가 배열일 경우) => json(객체로 구성됨)이 아닌 백엔드 서버가 구성 되어 있을 경우 가능 
+        if(response.status == 201){
+          //const newComment = response.data[response.data.length - 1]; //배열을 추가
+          const newComment = response.data; //객체를 추가
+
+          setComments((arr) =>{
+            return [...arr, newComment] 
+          })
+          setComment(''); 
+        }
+
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+  }
+
   return (
     <Wrapper>
       <Container>
@@ -127,11 +169,16 @@ const BlogRead = () => {
 
         {/* 블로그 댓글 설계 필요 */}
         <CommentLabel>작성된 댓글</CommentLabel>
-        <BlogCommentList comments={comments} />
+        <BlogCommentList comments={comments || []} />  {/* 댓글이 없는 경우를 위해 비어있는 배열 추가 => || [] */}
 
-        <TextInput height={15} />
+        <TextInput height={15} 
+                    value={comment} 
+                    changeHandler={(e) => {
+                      setComment(e.target.value)
+                    }} 
+        />
 
-        <Button title={'댓글작성'} onClick={() => {}} />
+        <Button title={'댓글작성'} onClick={() => commentHandler(blog.id, comment)} />
       </Container>
     </Wrapper>
   )

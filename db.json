@@ -3,19 +3,7 @@
     {
       "id": 1,
       "title": "타이틀 1 입니다",
-      "content": "컨텐츠 1 입니다",
-      "comments" : [
-        {
-          "commentId" : 1,
-          "content" : "재밌어용!",
-          "id" : 1
-        },
-        {
-          "commentId" : 2,
-          "content" : "어려워용!",
-          "id" : 1
-        }
-      ]
+      "content": "컨텐츠 1 입니다"
     },
     {
       "id": 2,
@@ -60,6 +48,23 @@
       "email": "test@naver.com",
       "password": "1234",
       "id": 2
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "content": "재밌어용!",
+      "blogId": 1
+    },
+    {
+      "id": 2,
+      "content": "어려워용!",
+      "blogId": 1
+    },
+    {
+      "id": 1767058545241,
+      "content": "댓글 테스트중",
+      "blogId": 1
     }
   ]
 }
