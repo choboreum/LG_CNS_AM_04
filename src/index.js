@@ -12,16 +12,20 @@ import EventPage from './page/event/EventPage';
 import UserPage from './page/redering/UserPage';
 import BlogApp from './BlogApp';
 import ContextApp from './ContextApp';
+import WeatherPage from './page/openapi/WeatherPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <>
+    {/* // openAPI 적용 예) */}
+    <WeatherPage />
+
     {/* // Context/provider 적용 예) */}
     {/* <ContextApp /> */}
 
     {/* // Blog 적용 예) */}
-    <BlogApp />
+    {/* <BlogApp /> */}
   </>
 )
 
