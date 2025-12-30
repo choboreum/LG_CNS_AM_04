@@ -11,13 +11,17 @@ import BlogJsonPage from './page/state/BlogJsonPage';
 import EventPage from './page/event/EventPage';
 import UserPage from './page/redering/UserPage';
 import BlogApp from './BlogApp';
+import ContextApp from './ContextApp';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <>
-    {/* // 이벤트 적용 예) */}
-    <BlogApp />
+    {/* // Context/provider 적용 예) */}
+    <ContextApp />
+
+    {/* // Blog 적용 예) */}
+    {/* <BlogApp /> */}
   </>
 )
 
