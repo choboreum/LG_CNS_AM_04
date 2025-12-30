@@ -18,10 +18,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <>
     {/* // Context/provider 적용 예) */}
-    <ContextApp />
+    {/* <ContextApp /> */}
 
     {/* // Blog 적용 예) */}
-    {/* <BlogApp /> */}
+    <BlogApp />
   </>
 )
 
