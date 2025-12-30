@@ -25,6 +25,13 @@ const Container = styled.div`
     }
 `;
 
+const WelcomeMessage = styled.div`
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    color: #333;
+`;
+
 const BlogWrite = () => {
     /** 요구사항)
      * 1. 타이틀과 내용은 hook을 이용해서 상태 관리를 한다.
@@ -36,6 +43,10 @@ const BlogWrite = () => {
 
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+
+    // token 정보 가져오기
+    const email = localStorage.getItem("token");
+    console.log("Blog Write token get >>>> ", email);
 
     const id = Date.now();
 
@@ -75,6 +86,8 @@ const BlogWrite = () => {
     return (
         <Wrapper>
             <Container>
+                {email && <WelcomeMessage>{email}님, 환영합니다.</WelcomeMessage>} 
+                
                 <TextInput height={20} value={title} changeHandler={(e) => setTitle(e.target.value)} />
                 <TextInput height={480} value={content} changeHandler={(e) => setContent(e.target.value)} />
                 <Button title={"작성글 저장"} onClick={(e) => saveHandler(title, content)} /> &nbsp;

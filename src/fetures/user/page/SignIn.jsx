@@ -100,16 +100,24 @@ const SignIn = () =>{
     const handlerSubmit = async(e) =>{
         e.preventDefault();
         try{
-            const response = await api.get("/users", {
-                params : {
-                    email : form.email,
-                    password : form.password,
-                }
-            })
-            console.log(response)
-            moveUrl('/blog/index');
-        } catch(err) {
+          const response = await api.get("/users", {
+              params : {
+                  email : form.email,
+                  password : form.password,
+              }
+          })
+          console.log(response);
 
+          if(response.status === 200){
+            // 인증된 사용자 정보를 공유하기 위해서 데이터를 심어본다면?
+            const email = response.data[0].email;
+            localStorage.setItem("token", email)
+            console.log('token set >>>>>', email);
+
+            moveUrl('/blog/index');
+          } 
+        } catch(err) {
+          console.log(err)
         }
     }
     return(

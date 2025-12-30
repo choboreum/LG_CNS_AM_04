@@ -76,6 +76,10 @@ const BlogRead = () => {
   const {id} = useParams();
   console.log("content params : ", id);
 
+  // token 정보 가져오기
+  const email = localStorage.getItem("token");
+  console.log("BlogRead token get >>>> ", email);
+
   const [blog, setBlog] = useState({});
   const [comments, setComments] = useState([]); //작성된 댓글들에 관련된 변수
   const [comment, setComment] = useState(''); //작성 후 등록해야 할 댓글에 관련된 변수
@@ -177,29 +181,34 @@ const BlogRead = () => {
 
   return (
     <Wrapper>
-      <Container>
-        <Button title={'메인으로'} onClick={() => moveUrl('/blog/index')} />
+      {!blog.id && <Spinner />}
+      {blog.id && 
+        <Container>
+          {email && <WelcomeMessage>{email}님, 환영합니다.</WelcomeMessage>} 
 
-        <PostContainer>
-          <TitleText>{blog.title}</TitleText>
-          <ContentText>{blog.content}</ContentText>
-        </PostContainer>
+          <Button title={'메인으로'} onClick={() => moveUrl('/blog/index')} />
 
-        {/* 블로그 댓글 설계 필요 */}
-        <CommentLabel>작성된 댓글</CommentLabel>
-        <BlogCommentList comments={comments || []}  //댓글이 없는 경우를 위해 비어있는 배열 추가 => || []
-                          commentDeleteHandler = {commentDeleteHandler} //인자를 전달 할 이유가 없어서 축약 사용
-        />
+          <PostContainer>
+            <TitleText>{blog.title}</TitleText>
+            <ContentText>{blog.content}</ContentText>
+          </PostContainer>
 
-        <TextInput height={15} 
-                    value={comment} 
-                    changeHandler={(e) => {
-                      setComment(e.target.value)
-                    }} 
-        />
+          {/* 블로그 댓글 설계 필요 */}
+          <CommentLabel>작성된 댓글</CommentLabel>
+          <BlogCommentList comments={comments || []}  //댓글이 없는 경우를 위해 비어있는 배열 추가 => || []
+                            commentDeleteHandler = {commentDeleteHandler} //인자를 전달 할 이유가 없어서 축약 사용
+          />
 
-        <Button title={'댓글작성'} onClick={() => commentHandler(blog.id, comment)} />
-      </Container>
+          <TextInput height={15} 
+                      value={comment} 
+                      changeHandler={(e) => {
+                        setComment(e.target.value)
+                      }} 
+          />
+
+          <Button title={'댓글작성'} onClick={() => commentHandler(blog.id, comment)} />
+        </Container>
+      }
     </Wrapper>
   )
 }

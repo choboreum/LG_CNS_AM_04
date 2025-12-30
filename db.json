@@ -50,16 +50,5 @@
       "id": 2
     }
   ],
-  "comments": [
-    {
-      "id": 1,
-      "content": "재밌어용!",
-      "blogId": 1
-    },
-    {
-      "id": 1767061350906,
-      "content": "힘드러요!",
-      "blogId": 1
-    }
-  ]
+  "comments": []
 }

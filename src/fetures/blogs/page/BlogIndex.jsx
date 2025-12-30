@@ -46,6 +46,10 @@ const BlogIndex = () => {
 
     const moveUrl = useNavigate();
 
+    // token 정보 가져오기
+    const email = localStorage.getItem("token");
+    console.log("token get >>>> ", email);
+
     const loadDate= async() => { // 데이터와 통신을 해야하기 때문에 async사용
         try{
             const response = await api.get("/blogs")
@@ -62,10 +66,19 @@ const BlogIndex = () => {
         loadDate();
     },[]); // 마운트 될 때 실행
 
+    const logoutHandler = () => {
+        console.log("logoutHandler >>>> ")
+        localStorage.removeItem("token");
+        moveUrl('/');
+        console.log('token remove >>>>')
+    }
+
     return(
         <Wrapper>
             <Container>
-                <Button title={"글 작성하기"} onClick={() =>{ moveUrl("/blog/write") }} />
+                {email && <WelcomeMessage>{email}님, 환영합니다.</WelcomeMessage>} 
+                <Button title={"글 작성하기"} onClick={() =>{ moveUrl("/blog/write") }} /><br />
+                <Button title={"logout"} onClick={() =>{ logoutHandler() }} />
 
                 <BlogList blogs={arr} />
             </Container>
