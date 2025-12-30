@@ -5,6 +5,7 @@ import TextInput from "../ui/TextInput";
 import BlogCommentList from "../list/BlogCommentList";
 import { useEffect, useState } from "react";
 import api from "../../../api/axios";
+import axios from "axios";
 
 const Wrapper = styled.div`
     padding: 16px;
@@ -122,11 +123,9 @@ const BlogRead = () => {
  * 전달받은 인자를 axios를 이용해서 db.json comments에 등록하고
  * 메인페이지로 이동이 아닌, 현재 페이지(상세보기) 내부에서 댓글 등록이 되면서 갱신 후 리랜더링
  */
-
-
   const commentHandler = async(blogId, content) => { //댓글 입력 핸들러
     console.log(blogId, content)
-    await api.post('comments',{
+    await api.post('/comments',{
         id : Date.now(),
         content : content,
         blogId : blogId,
@@ -141,7 +140,7 @@ const BlogRead = () => {
 
 
         // 부분 리랜더링을 위한 기본패턴(response.data가 배열일 경우) => json(객체로 구성됨)이 아닌 백엔드 서버가 구성 되어 있을 경우 가능 
-        if(response.status == 201){
+        if(response.status === 201){
           //const newComment = response.data[response.data.length - 1]; //배열을 추가
           const newComment = response.data; //객체를 추가
 
@@ -155,7 +154,26 @@ const BlogRead = () => {
       .catch((err)=>{
         console.log(err)
       })
-  }
+    }
+
+    // 댓글 삭제 이벤트
+    const commentDeleteHandler = async(id) => { //해당 id는 comment의 식별값인 id
+      console.log('commentDeleteHandler id >>>>', id)
+      /**
+       * 전달 받은 식별값으로 해당 댓글을 삭제하고, 
+       * 댓글ui만 리랜더링
+       */
+      await api.delete(`/comments/${id}`)
+        .then((response) => {
+          console.log('commentDeleteHandler response >>>>', response)
+          if(response.status === 200){
+            setComments( comments.filter((e) => e.id != id ) ) //filter사용 후 이벤트가 일어난 id와 같지 않은 남은 id들의 리스트들만 setComments에 담기
+          }
+        })
+        .catch((err) => {
+          console.log('commentDeleteHandler err >>>>', err)
+        })
+    }
 
   return (
     <Wrapper>
@@ -169,7 +187,9 @@ const BlogRead = () => {
 
         {/* 블로그 댓글 설계 필요 */}
         <CommentLabel>작성된 댓글</CommentLabel>
-        <BlogCommentList comments={comments || []} />  {/* 댓글이 없는 경우를 위해 비어있는 배열 추가 => || [] */}
+        <BlogCommentList comments={comments || []}  //댓글이 없는 경우를 위해 비어있는 배열 추가 => || []
+                          commentDeleteHandler = {commentDeleteHandler} //인자를 전달 할 이유가 없어서 축약 사용
+        />
 
         <TextInput height={15} 
                     value={comment} 

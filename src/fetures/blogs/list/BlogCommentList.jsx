@@ -10,13 +10,16 @@ const Wrapper = styled.div`
     justify-content: center;
 `;
 
-const BlogCommentList = ({comments}) => {
+const BlogCommentList = ({comments, commentDeleteHandler}) => {
   return (
     <Wrapper>
         {
             comments.map( (comment, i) => {
                 return(
-                    <BlogCommentItem key={comment.id} comment={comment} />
+                    <BlogCommentItem key={comment.id} //식별자
+                                    comment={comment} //전달 받은 값
+                                    commentDeleteHandler = {commentDeleteHandler} //전달 받은 이벤트 
+                    />
                 )
             })
         }
