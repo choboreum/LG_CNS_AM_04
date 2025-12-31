@@ -9,7 +9,6 @@ const WeatherPage = () => {
     const [weather, setWeather] = useState(null); // 여러개의 정보를 가져와야해서 객체로 담을 예정
 
     const apiKey = process.env.REACT_APP_OPENAPI_KEY; // apikey를 env파일에 숨겨서 변수에 담아 사용하기
-    console.log('apiKey >>>>> ', apiKey)
 
     // 현재 위치 정보(위도, 경도)를 얻어오기
     const getCurLoc = () => {
@@ -35,23 +34,40 @@ const WeatherPage = () => {
         console.log(res)
         console.log(data)
 
+        setCity(data);
+    }
+
+    /**
+     * 도시명을 선택하면 날씨 정보를 변경
+     * props 및 이벤트 전달 
+     * 그리고 endpoint 확인이 필요함
+     */
+    const getCityWeather = async() => {
+        let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
+        const res = await fetch(url);
+        let data = await res.json();
+
         setWeather(data);
     }
 
-    const getCityWeather = async(url) => {
-
+    const cityHandler = (city) => {
+        console.log('cityHandler >>>>', city)
+        setCity(city);
     }
 
     useEffect(()=>{
-        getCurLoc();
-    }, [])
+        console.log('weather page >>>> ', city)
+        if(city == ''){
+            getCurLoc();
+        } else getCityWeather();
+    },[city])
 
     return (
         <div className='container'>
             {/* weather정보 */}
-            <WeatherBox weather={weather} />
+            <WeatherBox weather={weather} city={city} />
             {/* city정보 */}
-            <WeatherButton cities={cities} setCity={setCity} getCityWeather={getCityWeather} /> 
+            <WeatherButton cities={cities} cityHandler={cityHandler} /> 
         </div>
     )
 }
