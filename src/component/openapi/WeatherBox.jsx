@@ -7,7 +7,11 @@ import React from 'react'
 const WeatherBox = ({weather}) => {
   return (
     <div className='weather-box'>
-
+      <p>{weather?.sys.country}</p>
+      <p>{weather?.name}</p>
+      <p>{weather?.main.temp}</p>
+      <p>{weather?.weather[0].main}</p>
+      <p>{weather?.weather[0].main.description}</p>
     </div>
   )
 }

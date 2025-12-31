@@ -5,11 +5,15 @@ import { Button } from 'react-bootstrap'
 const WeatherButton = ({cities, setCity}) => {
   return (
     <div className='weather-btn'>
-        <Button className='btn'>Current Location</Button>
+        <Button className='btn'
+                variant={`${setCity == '' ? 'outline-warning' : ''}`}
+        >Current Location</Button>
         {
-            cities.map((city, i) => {
+            cities.map((item, i) => {
                 return(
-                    <Button className='btn' key={i}>{city}</Button>       
+                    <Button className='btn' 
+                            key={i}
+                    >{item}</Button>       
                 )
             })
         }
