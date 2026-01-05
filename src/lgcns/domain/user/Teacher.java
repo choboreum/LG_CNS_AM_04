@@ -14,6 +14,7 @@ public class Teacher {
 
     // special constructor
     public Teacher(String name, int age){
-    
+        this.name = name;
+        this.age = age;
     }
 }
