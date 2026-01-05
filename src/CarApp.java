@@ -14,5 +14,13 @@ public class CarApp {
 
         String dreamCar =  car.dreamCar();
         System.out.println(dreamCar);
+
+        car.drive();
+        String repair = car.repair();
+        System.out.println(repair);
+        car.performance("고급휘발유");
+        String speed = car.speed(30);
+        System.out.println(speed);
+        
     }
 }

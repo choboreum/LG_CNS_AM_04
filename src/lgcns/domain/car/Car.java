@@ -42,4 +42,19 @@ public class Car {
     public String dreamCar(){
         return "maker : " + maker + ", \nmodel : " + model + ", \nprice : " + price;
     }
+
+    public void drive(){
+        System.out.println("매개변수X, 반환타입X");
+    }
+    public String repair(){
+        System.out.println("매개변수X, 반환타입O");
+        return "차량이 수리 되었습니다."; 
+    }
+    public void performance(String fuel){
+        System.out.println("매개변수O, 반환타입X");
+    }
+    public String speed(int speed) {
+        System.out.println("매개변수O, 반환타입O");
+        return "과속중입니다";
+    }
 }
