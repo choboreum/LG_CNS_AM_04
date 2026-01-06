@@ -8,5 +8,7 @@ public class LoopApp {
         System.out.println( result );
 
         System.out.println( loopDemo.sumRandom() );
+        int sumRandom2 = loopDemo.sumRandom2();
+        System.out.printf("%d", sumRandom2);
     }
 }

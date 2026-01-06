@@ -24,11 +24,37 @@ public class LoopDemo {
         int sum = 0;
 
         System.out.println("난수 : " + num);
-        for(int i = 1; i <= num; i++){
+        // for(int i = 1; i <= num; i++){
+        //     sum += i;    
+        // }
+
+        int i = 0;
+        while (i <= num) {
             sum += i;    
+            i++;
         }
 
         String result =  "난수는 : " + num + "이며, 1부터 " + num + "까지의 합은 " + sum + "입니다.";
+
+        return result;
+    }
+
+    public int sumRandom2(){
+        int num = (int)(Math.random() * 100) + 1;
+        int sum = 0;
+
+        System.out.println("난수 : " + num);
+        // for(int i = 1; i <= num; i++){
+        //     sum += i;    
+        // }
+
+        int i = 0;
+        while (i <= num) {
+            sum += i;    
+            i++;
+        }
+
+        int result = sum;
 
         return result;
     }
