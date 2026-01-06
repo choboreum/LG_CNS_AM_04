@@ -29,14 +29,21 @@ public class ControlDemo {
     public String woodMan(int num){
         String str = null;
 
-        // if(num < 4 && num > 0){
-        //     if(num == 1) str = "false!";
-        //     else if(num == 2) str = "false false!";
-        //     else str = "true~~";
-        // } else{
-        //     str = "1~3사이로 작성해주세요.";
-        // }
+       //if문
+        if(num < 4 && num > 0){
+            /* 
+            if(num == 1) str = "false!";
+            else if(num == 2) str = "false false!";
+            else str = "true~~";
+            */
 
+            str = num == 1 ?  "false!" 
+                : num == 2 ?  "false false!" 
+                : "true~~";
+        } else{
+            str = "1~3사이로 작성해주세요.";
+        } 
+        /* //switch문
         switch(num){
             case 1: 
                 str = "false!";
@@ -50,8 +57,23 @@ public class ControlDemo {
             default:
                 str = "1~3사이로 작성해주세요.";
                 break;
-                
         }
+        */
+
+        return str;
+    }
+
+    /**
+     * Quiz)
+     * 세 과목의 점수가 각각 40점 이상 이면서
+     * 평균 60점 이상이면 '합격' 아니면 불합격 
+     */
+    public String passOrNonPass (int ko, int en, int math) {
+        String str = null;
+
+        if(ko >= 40 && en >= 40 && math >= 40){
+            if((ko + en + math) / 3 >= 60) str = "합격";
+        } else str = "불합격"; 
 
         return str;
     }
