@@ -79,4 +79,12 @@ public class LoopDemo {
             }
         }
     }
+
+    public void popStr(String str){
+        System.out.println(">>> param : " + str);
+
+        for(int i = 0; i < str.length(); i++){
+            System.err.println(str.charAt(i));
+        }
+    }
 }

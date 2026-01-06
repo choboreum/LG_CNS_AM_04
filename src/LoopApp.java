@@ -14,5 +14,7 @@ public class LoopApp {
         loopDemo.gugudan(2);
 
         loopDemo.gugudan2();
+
+        loopDemo.popStr("lgcns");
     }
 }
