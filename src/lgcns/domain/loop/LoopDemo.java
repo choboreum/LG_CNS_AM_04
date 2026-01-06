@@ -58,4 +58,25 @@ public class LoopDemo {
 
         return result;
     }
+
+    public void gugudan (int dan){
+        for(int i = 1; i <= 9; i++){
+            System.out.printf("%d * %d = %d\n", dan, i, (dan * i));
+        }
+    }
+
+    public void gugudan2 (){
+        outer :
+        for(int i = 2; i <= 9; i++){
+            System.out.printf("============ %d단 ============\n", i);
+            inner :
+            for(int j = 1; j <= 9; j++){
+                
+                if (i == 4) {
+                    break outer;
+                }
+                System.out.printf("%d * %d = %d\n", i, j, (i * j));
+            }
+        }
+    }
 }

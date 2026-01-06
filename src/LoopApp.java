@@ -9,6 +9,10 @@ public class LoopApp {
 
         System.out.println( loopDemo.sumRandom() );
         int sumRandom2 = loopDemo.sumRandom2();
-        System.out.printf("%d", sumRandom2);
+        System.out.printf("%d\n", sumRandom2);
+
+        loopDemo.gugudan(2);
+
+        loopDemo.gugudan2();
     }
 }
