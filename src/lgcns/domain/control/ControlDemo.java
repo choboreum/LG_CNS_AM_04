@@ -7,9 +7,6 @@ import lgcns.domain.user.UserRequestDto;
 public class ControlDemo {
     public void operator(){
         System.out.println("반환x, 매개변수x");
-
-        Scanner sc = new Scanner(System.in);
-
     }
 
     public boolean registerCase01(String email, String password, String name){
@@ -32,12 +29,28 @@ public class ControlDemo {
     public String woodMan(int num){
         String str = null;
 
-        if(num < 4 && num > 0){
-            if(num == 1) str = "false!";
-            else if(num == 2) str = "false false!";
-            else str = "true~~";
-        } else{
-            str = "1~3사이로 작성해주세요.";
+        // if(num < 4 && num > 0){
+        //     if(num == 1) str = "false!";
+        //     else if(num == 2) str = "false false!";
+        //     else str = "true~~";
+        // } else{
+        //     str = "1~3사이로 작성해주세요.";
+        // }
+
+        switch(num){
+            case 1: 
+                str = "false!";
+                break;
+            case 2: 
+                str = "false false!";
+                break;
+            case 3: 
+                str = "true~~";
+                break;
+            default:
+                str = "1~3사이로 작성해주세요.";
+                break;
+                
         }
 
         return str;
