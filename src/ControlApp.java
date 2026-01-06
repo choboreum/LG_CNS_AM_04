@@ -36,11 +36,11 @@ public class ControlApp {
         System.out.println( result );
         
         System.out.println("\n==========================");
-        System.out.print("국어 점수를 입력하세요. :");
+        System.out.print("국어 점수를 입력하세요. : ");
         int ko = sc.nextInt();
-        System.out.print("영어 점수를 입력하세요. :");
+        System.out.print("영어 점수를 입력하세요. : ");
         int en = sc.nextInt();
-        System.out.print("수학 점수를 입력하세요. :");
+        System.out.print("수학 점수를 입력하세요. : ");
         int math = sc.nextInt();
         String pass = controlDemo.passOrNonPass(ko, en, math);
         System.out.println(pass);

@@ -71,9 +71,14 @@ public class ControlDemo {
     public String passOrNonPass (int ko, int en, int math) {
         String str = null;
 
+        /*
         if(ko >= 40 && en >= 40 && math >= 40){
             if((ko + en + math) / 3 >= 60) str = "합격";
         } else str = "불합격"; 
+        */
+
+        double avg = (ko + en + math) / 3.0;
+        str = ((ko >= 40 && en >= 40 && math >= 40) && (avg >= 60)) ? "합격" : "불합격";
 
         return str;
     }
