@@ -28,5 +28,11 @@ public class ControlApp {
 
         if(flag) System.out.println("> 정상적으로 가입 되었습니다.");
         else System.out.println("> 가입 중 문제가 생겼습니다");
+
+        System.out.println("==========================");
+        System.out.print("1~3사이의 숫자를 입력해주세요.");
+        int num = sc.nextInt();
+        String result = controlDemo.woodMan(num);
+        System.out.println( result );
     }
 }

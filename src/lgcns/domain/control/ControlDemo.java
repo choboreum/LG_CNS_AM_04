@@ -22,4 +22,24 @@ public class ControlDemo {
         System.out.println("======= name >>> " + userRequestDto.getName());
         return true;
     }
+
+    /** 
+     * 매개변수의 값은 1~3
+     * 1. 1 선택 시 => false!
+     * 2. 2 선택 시 => false false!
+     * 3. 3 선택 시 => true~~
+     */
+    public String woodMan(int num){
+        String str = null;
+
+        if(num < 4 && num > 0){
+            if(num == 1) str = "false!";
+            else if(num == 2) str = "false false!";
+            else str = "true~~";
+        } else{
+            str = "1~3사이로 작성해주세요.";
+        }
+
+        return str;
+    }
 }
