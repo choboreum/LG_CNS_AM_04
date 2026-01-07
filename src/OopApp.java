@@ -4,7 +4,7 @@ import lgcns.domain.oop.sup.PersonDTO;
 
 public class OopApp {
     public static void main(String[] args) {
-        StudentDTO studentDTO = StudentDTO.builder()
+        PersonDTO studentDTO = StudentDTO.builder()
                                         .ssn(2026)    
                                         .name("lgcns")
                                         .age(26)
@@ -12,7 +12,7 @@ public class OopApp {
                                         .build();
 
                                         
-        TeacherDTO teacherDTO = TeacherDTO.builder()
+        PersonDTO teacherDTO = TeacherDTO.builder()
                                         .subject("ko")    
                                         .name("lgcns")
                                         .age(26)
@@ -23,10 +23,10 @@ public class OopApp {
         System.out.println( studentDTO.personInfo() );
         
         System.out.println( "========= stuInfo =========" );
-        System.out.println( studentDTO.stuInfo() );
+        //System.out.println( studentDTO.stuInfo() );
 
         System.out.println( "========= teaInfo =========" );
-        System.out.println( teacherDTO.teaInfo() );
+        //System.out.println( teacherDTO.teaInfo() );
 
         System.out.println( "==================" );
         PersonDTO[] preAry = new PersonDTO[10];
@@ -37,11 +37,11 @@ public class OopApp {
             //if(personDTO != null) System.out.println(personDTO.personInfo());
             if(personDTO != null) System.out.println(personDTO.getClass());
             if(personDTO != null) System.out.println("======== instanceof ========" );
-            if(personDTO instanceof StudentDTO) {
-                System.out.println( ((StudentDTO)personDTO).stuInfo() );
-            } else {
-                System.out.println( ((TeacherDTO)personDTO).teaInfo() );
-            }
+            // if(personDTO instanceof StudentDTO) {
+            //     System.out.println( ((StudentDTO)personDTO).stuInfo() );
+            // } else {
+            //     System.out.println( ((TeacherDTO)personDTO).teaInfo() );
+            // }
         }
     }
 }
