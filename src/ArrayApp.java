@@ -1,3 +1,5 @@
+import lgcns.domain.array.ArrayDemo;
+import lgcns.domain.user.UserRequestDto;
 import lgcns.domain.user.UserResponseDto;
 
 public class ArrayApp {
@@ -17,10 +19,12 @@ public class ArrayApp {
 
         UserResponseDto userResponseDto = UserResponseDto.builder()
                                                     .email("lg@lg.cns")
+                                                    .password("1234")
+                                                    .name("lg")
                                                     .build();
 
-        String email = userResponseDto.getEmail();
-        System.out.println(email);
+        String user = userResponseDto.getEmail();
+        System.out.println(user);
 
         UserResponseDto [] userAry = new UserResponseDto[10];
         userAry[0] = userResponseDto;
@@ -33,6 +37,17 @@ public class ArrayApp {
 
         for(UserResponseDto data : userAry){
             if( data != null ) System.out.println(data.getEmail());
+        }
+
+        /////////////////////
+        ArrayDemo arrayDemo = new ArrayDemo();
+        arrayDemo.insertTable("1@naver.com", "2345", "11");
+        arrayDemo.insertTable("2@daum.net", "3456", "22");
+        arrayDemo.insertTable("3@nate.com", "4567", "33");
+
+        UserRequestDto [] userAryResponseDto = arrayDemo.getUsers();
+        for(UserRequestDto data : userAryResponseDto){
+            if(data != null) System.out.println(data.getEmail());
         }
     }
 }
