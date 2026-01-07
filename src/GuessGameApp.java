@@ -8,8 +8,8 @@ public class GuessGameApp {
 
         GuessGame guessGame = new GuessGame();
         
-        //String result = guessGame.gameFor(num);
-        String result = guessGame.gameWhile(num);
+        String result = guessGame.gameFor(num);
+        //String result = guessGame.gameWhile(num);
 
         System.out.println(result);
     }
