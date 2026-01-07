@@ -1,5 +1,6 @@
 import lgcns.domain.oop.sub.StudentDTO;
 import lgcns.domain.oop.sub.TeacherDTO;
+import lgcns.domain.oop.sup.PersonDTO;
 
 public class OopApp {
     public static void main(String[] args) {
@@ -26,5 +27,21 @@ public class OopApp {
 
         System.out.println( "========= teaInfo =========" );
         System.out.println( teacherDTO.teaInfo() );
+
+        System.out.println( "==================" );
+        PersonDTO[] preAry = new PersonDTO[10];
+        preAry[0] = studentDTO;
+        preAry[1] = teacherDTO;
+
+        for(PersonDTO personDTO : preAry){
+            //if(personDTO != null) System.out.println(personDTO.personInfo());
+            if(personDTO != null) System.out.println(personDTO.getClass());
+            if(personDTO != null) System.out.println("======== instanceof ========" );
+            if(personDTO instanceof StudentDTO) {
+                System.out.println( ((StudentDTO)personDTO).stuInfo() );
+            } else {
+                System.out.println( ((TeacherDTO)personDTO).teaInfo() );
+            }
+        }
     }
 }
