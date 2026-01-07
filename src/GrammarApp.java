@@ -13,5 +13,16 @@ public class GrammarApp {
         System.out.println(a+b);
 
         float f = 3.12f;
+
+        //////////////////////////////////////////////////
+        
+        char [] charAry = new char[1];
+        charAry[0] = 100;
+        
+        int [] intAry = new int[1];
+        intAry[0] = 'a';
+
+        System.out.println("charAry[0] : " + charAry[0]);
+        System.out.println("intAry[0] : " + intAry[0]);
     }
 }
