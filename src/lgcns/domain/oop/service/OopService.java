@@ -3,6 +3,7 @@ package lgcns.domain.oop.service;
 import lgcns.domain.oop.sub.StudentDTO;
 import lgcns.domain.oop.sub.TeacherDTO;
 import lgcns.domain.oop.sup.PersonDTO;
+import lgcns.domain.oop.util.DivisionFlag;
 
 /**
  * 배열: PersonDRO[]
@@ -18,14 +19,21 @@ public class OopService {
 
     // flag 1: stu
     // flag 2: tea
-    public void makePer(int flag, String name, int age, String address, String comm){
+    public void makePer(DivisionFlag divisionFlag, String name, int age, String address, String comm){
         // setAry(new StudentDTO());
         // setAry(new TeacherDTO());
         PersonDTO per = null;
         // new 연산자 기법
         // per = (flag == 1) ? new StudentDTO() : new TeacherDTO(); 
         // builder 패턴 기법
+        /*
         per = (flag == 1) ? StudentDTO.builder().name(name).age(age).address(address).ssn(comm)
+                                .build() 
+                            : TeacherDTO.builder().name(name).age(age).address(address).subject(comm)
+                                .build();
+        */
+
+        per = (divisionFlag.getDivision().equals("학생")) ? StudentDTO.builder().name(name).age(age).address(address).ssn(comm)
                                 .build() 
                             : TeacherDTO.builder().name(name).age(age).address(address).subject(comm)
                                 .build();
