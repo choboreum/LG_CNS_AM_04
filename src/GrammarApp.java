@@ -24,5 +24,24 @@ public class GrammarApp {
 
         System.out.println("charAry[0] : " + charAry[0]);
         System.out.println("intAry[0] : " + intAry[0]);
+
+        /////////////////////////////////////////////////////
+        String str1 = "lg";
+        String str2 = "lg";
+        if(str1 == str2){
+            System.out.println("> str1 == str2" + (str1 == str2));
+        }
+        if(str1.equals(str2)){
+            System.out.println(">> str1.equals(str2)" + (str1.equals(str2)));
+        }
+
+        String str01 = new String("lg");
+        String str02 = new String("lg");
+        if(str01 == str02){
+            System.out.println(">>> str01 == str02" + (str01 == str02));
+        }
+        if(str01.equals(str02)){
+            System.out.println(">>>> str01.equals(str02)" + (str01.equals(str02)));
+        }
     }
 }
