@@ -5,7 +5,7 @@ import lgcns.domain.oop.sup.PersonDTO;
 public class OopApp {
     public static void main(String[] args) {
         PersonDTO studentDTO = StudentDTO.builder()
-                                        .ssn(2026)    
+                                        .ssn("2026")    
                                         .name("lgcns")
                                         .age(26)
                                         .address("seoul")

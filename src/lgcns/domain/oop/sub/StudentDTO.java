@@ -11,9 +11,14 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @Getter
 public class StudentDTO extends PersonDTO {
-    private int ssn;
+    private String ssn;
     
     public String stuInfo(){
+        return super.personInfo() + "\nssn : " + ssn;
+    }
+
+    @Override
+    public String personInfo() {
         return super.personInfo() + "\nssn : " + ssn;
     }
 }
