@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import lgcns.domain.oop.sub.StudentDTO;
 import lgcns.domain.oop.sub.TeacherDTO;
@@ -35,13 +37,28 @@ public class CollectionApp {
         System.out.println(">>> DTO");
         List<PersonDTO> perList = new ArrayList<>(); //PersonDTO 타입으로 만든다는 것은, 자식도 함께 쓸 수 있다 => 다형성
         TeacherDTO teacherDTO = TeacherDTO.builder()
-                                .name("lgcns").age(20).address("seoul").subject("java").build();
+        .name("lgcns").age(20).address("seoul").subject("java").build();
         StudentDTO studentDTO = StudentDTO.builder()
-                                .name("cho").age(24).address("seoul").ssn("2026").build();
+        .name("cho").age(24).address("seoul").ssn("2026").build();
         perList.add(teacherDTO);
         perList.add(studentDTO);
         for(PersonDTO data : perList){
             System.out.println(data.personInfo());
+        }
+        
+        System.out.println(">>> Set");
+        Set<String> set = new HashSet<>();
+        set.add("lg");
+        set.add("cns");
+        set.add("am04");
+        set.add("lg");
+        set.add("cns");
+        set.add("am04");
+        System.out.println(set);
+        
+        Object [] setAry = set.toArray();
+        for(Object data : setAry){
+            System.out.println(data);
         }
     }
 }
