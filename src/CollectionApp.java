@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import lgcns.domain.oop.sub.StudentDTO;
@@ -60,5 +62,16 @@ public class CollectionApp {
         for(Object data : setAry){
             System.out.println(data);
         }
+
+        System.out.println(">>> Map");
+        Map<String, List<? extends PersonDTO>> map = new HashMap<>();
+
+        List<PersonDTO> stuList = new ArrayList<>();
+        stuList.add(studentDTO);
+        List<PersonDTO> teaList = new ArrayList<>();
+        teaList.add(teacherDTO);
+
+        map.put("users", stuList);
+        map.put("comment", teaList);
     }
 }
