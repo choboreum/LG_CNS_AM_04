@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import lgcns.domain.generic.Status;
 import lgcns.domain.oop.sub.StudentDTO;
 import lgcns.domain.oop.sub.TeacherDTO;
 import lgcns.domain.oop.sup.PersonDTO;
@@ -65,13 +66,23 @@ public class CollectionApp {
 
         System.out.println(">>> Map");
         Map<String, List<? extends PersonDTO>> map = new HashMap<>();
-
+        
         List<PersonDTO> stuList = new ArrayList<>();
         stuList.add(studentDTO);
         List<PersonDTO> teaList = new ArrayList<>();
         teaList.add(teacherDTO);
-
+        
         map.put("users", stuList);
         map.put("comment", teaList);
+        
+        System.out.println(">>> 사용자 정의 generics 문법");
+
+        Status<Integer> errCode = new Status<>();
+        errCode.setCode(200);
+        System.out.println(errCode.getCode());
+
+        Status<String> errMsg = new Status<>();
+        errMsg.setCode("리소스 생성완료");
+        System.out.println(errMsg.getCode());
     }
 }
