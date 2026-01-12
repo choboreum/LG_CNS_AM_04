@@ -18,4 +18,23 @@ public class ExceptionDemo {
         int num = Integer.parseInt(br.readLine());
         System.out.println(num);
     }
+
+    public void tryOf() {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("숫자를 입력하세요 : ");
+
+        String input = null;
+        //try catch
+        try{
+            input = br.readLine();
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
+        //Vavr = Value + variance : Try
+        int num = Try.of(() -> Integer.parseInt("lgcns"))
+                    .onFailure( e -> System.out.println("error"))
+                    .getOrElse("DEFAULT");
+        System.out.println(num);
+    }
 }
