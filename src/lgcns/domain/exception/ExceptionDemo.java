@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import io.vavr.control.Try;
+
 public class ExceptionDemo {
     private String [] strAry = {"lg", "cns", "am"};
     public void printAry() throws ArrayIndexOutOfBoundsException { // 런타임시점 예외
@@ -34,7 +36,7 @@ public class ExceptionDemo {
         //Vavr = Value + variance : Try
         int num = Try.of(() -> Integer.parseInt("lgcns"))
                     .onFailure( e -> System.out.println("error"))
-                    .getOrElse("DEFAULT");
+                    .getOrElse(-1);
         System.out.println(num);
     }
 }
