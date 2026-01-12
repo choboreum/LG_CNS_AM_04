@@ -15,7 +15,7 @@ public class ExceptionDemo {
     public void readString() throws IOException { //컴파일시점 예외
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("숫자를 입력하세요 : ");
-        String str = br.readLine();
-        System.out.println(str);
+        int num = Integer.parseInt(br.readLine());
+        System.out.println(num);
     }
 }

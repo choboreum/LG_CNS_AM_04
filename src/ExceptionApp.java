@@ -7,11 +7,9 @@ public class ExceptionApp {
         ExceptionDemo exceptionDemo = new ExceptionDemo(); 
         System.out.println(">>> start");
         try{
-            exceptionDemo.printAry();
+            //exceptionDemo.printAry();
             exceptionDemo.readString();
-        } catch(ArrayIndexOutOfBoundsException e) {
-            e.printStackTrace();
-        } catch(IOException e) {
+        } catch(Exception e) {
             e.printStackTrace();
         }
         System.out.println(">>> end");
