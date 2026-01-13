@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class GrammarApp {
     public static void main(String[] args) {
         
@@ -43,5 +46,31 @@ public class GrammarApp {
         if(str01.equals(str02)){
             System.out.println(">>>> str01.equals(str02)" + (str01.equals(str02)));
         }
+        
+        /////////////////////////////////////////////////////
+        /// Stream API
+        List<String> list = new ArrayList<>();
+        list.add("lg");
+        list.add("cns");
+        list.add("am");
+        list.add("inspire");
+
+        /*
+        List<String> result = new ArrayList<>();
+        for(String data : list){
+            if(data.length() >= 5){
+                result.add(data.toUpperCase());
+            }
+        }
+        */
+        List<String> result = list.stream()
+                                    .filter(data -> data.length() > 5)
+                                    .map(String::toUpperCase)
+                                    .toList();
+
+        result.stream()
+                .forEach( System.out::println );
+
+        System.out.println(result);
     }
 }
