@@ -40,7 +40,9 @@ public class StreamApiApp {
         // Stream<String[]> stream = Arrays.stream(strAry);
         List<String> brands = Arrays.asList("samsung", "lg");
         Stream<String> stream = brands.stream();
-        stream.forEach( (str) -> System.out.println(str) );
+        //stream.forEach( (str) -> System.out.println(str) );
+        brands.stream()
+            .forEach(str -> System.out.println(str));
 
     }
 }
