@@ -1,4 +1,5 @@
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import lgcns.domain.function.InspireFuncion;
@@ -18,7 +19,12 @@ public class StreamApiApp {
         System.out.print(">>> Consumer : ");
         Consumer<String> consumer = (str) -> System.out.println(str.split(" ")[1]);
         consumer
-            .andThen(x -> System.out.println(x))
-            .accept("lgcns inspire"); 
+        .andThen(x -> System.out.println(x))
+        .accept("lgcns inspire"); 
+        
+        System.out.print(">>> Function : ");
+        Function<String, Integer> function = (str) -> str.length();
+        int len = function.apply("lgcns inspire");
+        System.out.println(len);
     }
 }
