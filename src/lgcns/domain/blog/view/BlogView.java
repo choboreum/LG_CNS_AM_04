@@ -2,11 +2,18 @@ package lgcns.domain.blog.view;
 
 import java.util.Scanner;
 
+import lgcns.domain.blog.ctrl.front.FrontCtrl;
 import lombok.Builder;
 
-@Builder
+// @Builder
 public class BlogView {
     private Scanner scan;
+    private FrontCtrl front;
+
+    public BlogView(){
+        scan = new Scanner(System.in);
+        front = new FrontCtrl();
+    }
 
     public void mainMenu() {
         while(true) { 
@@ -87,6 +94,10 @@ public class BlogView {
         - dao 기존 list 에 전달받은 request 객체를 담고 
         - 성공이면 1, 실패면 2 반환
         */
+        int insertFlag = front.insert("insert", title, content, writer);
+
+        if(insertFlag == 1) System.out.println("1 row insert ok");
+        else System.out.println("1 row insert fail");
     }
 
     public void delete() {

@@ -1,6 +1,7 @@
 package lgcns.domain.blog.ctrl.front;
 
 import lgcns.domain.blog.ctrl.BlogInsertCtrl;
+import lgcns.domain.blog.domain.dto.BlogRequestDTO;
 import lgcns.domain.blog.factory.BlogFactory;
 
 public class FrontCtrl {
@@ -14,6 +15,11 @@ public class FrontCtrl {
         System.out.println(">>>> facfory insert");
         BlogInsertCtrl blogInsertCtrl = (BlogInsertCtrl)factory.getBlogBean(requestPath);
 
-        return blogInsertCtrl.insert(null);
+        BlogRequestDTO blogRequestDTO = BlogRequestDTO.builder()
+                                                    .title(title)
+                                                    .content(content)
+                                                    .writer(writer)
+                                                    .build();
+        return blogInsertCtrl.insert(blogRequestDTO);
     }
 }
