@@ -1,7 +1,10 @@
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import lgcns.domain.function.InspireFuncion;
 
@@ -31,5 +34,13 @@ public class StreamApiApp {
         System.out.print(">>> Predicate : ");
         Predicate<String> predicate = (str) -> str.equals("lgcns");
         System.out.println(predicate.test("inspire"));
+        
+        System.out.print(">>> Stream Api : ");
+        // String [] strAry = {"lg", "cns", "am"};
+        // Stream<String[]> stream = Arrays.stream(strAry);
+        List<String> brands = Arrays.asList("samsung", "lg");
+        Stream<String> stream = brands.stream();
+        stream.forEach( (str) -> System.out.println(str) );
+
     }
 }
