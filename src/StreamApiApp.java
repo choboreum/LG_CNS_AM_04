@@ -1,3 +1,5 @@
+import java.util.function.Supplier;
+
 import lgcns.domain.function.InspireFuncion;
 
 public class StreamApiApp {
@@ -7,5 +9,9 @@ public class StreamApiApp {
 
         InspireFuncion lamdaSumFunc = (x,y)-> x + y ;
         System.out.println(lamdaSumFunc.max(100,200));
+        
+        System.out.print(">>> Supplier : ");
+        Supplier<String> supplier = () -> "inspire";
+        System.out.println(supplier.get());
     }
 }
