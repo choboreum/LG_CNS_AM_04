@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lgcns.domain.blog.domain.dto.BlogRequestDTO;
+import lgcns.domain.blog.domain.dto.BlogResponseDTO;
 import lgcns.domain.blog.service.BlogService;
 import lombok.Builder;
 
@@ -27,10 +28,23 @@ public class BlogMapper {
     }
 
     public int insert(BlogRequestDTO blogRequestDTO){
-        System.out.println(">>>> BlogMapper");
+        System.out.println(">>>> BlogMapper insert");
         int result = 1; //저장이 되었다는 스위치 전달
         blogs.add(blogRequestDTO);
         return result;
     }
     
+    public List<BlogResponseDTO> list(){
+        System.out.println(">>>> BlogMapper list");
+
+        List<BlogResponseDTO> result = blogs.stream()
+                                            /* .map(dto -> new BlogResponseDTO(
+                                                dto.getTitle(),
+                                                dto.getContent(),
+                                                dto.getWriter()
+                                            )) */
+                                            .map(BlogRequestDTO::toResponseDTO)
+                                            .toList();
+        return result;
+    }
 }

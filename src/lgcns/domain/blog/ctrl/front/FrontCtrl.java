@@ -1,7 +1,11 @@
 package lgcns.domain.blog.ctrl.front;
 
+import java.util.List;
+
 import lgcns.domain.blog.ctrl.BlogInsertCtrl;
+import lgcns.domain.blog.ctrl.BlogListCtrl;
 import lgcns.domain.blog.domain.dto.BlogRequestDTO;
+import lgcns.domain.blog.domain.dto.BlogResponseDTO;
 import lgcns.domain.blog.factory.BlogFactory;
 
 public class FrontCtrl {
@@ -21,5 +25,14 @@ public class FrontCtrl {
                                                     .writer(writer)
                                                     .build();
         return blogInsertCtrl.insert(blogRequestDTO);
+    }
+
+    // 전체 출력
+    public List<BlogResponseDTO> list(String requestPath){
+        System.out.println(">>>> factory list");
+
+        BlogListCtrl blogListCtrl = (BlogListCtrl)factory.getBlogBean(requestPath);
+    
+        return blogListCtrl.list();
     }
 }

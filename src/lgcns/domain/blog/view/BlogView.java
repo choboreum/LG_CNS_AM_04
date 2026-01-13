@@ -1,8 +1,10 @@
 package lgcns.domain.blog.view;
 
+import java.util.List;
 import java.util.Scanner;
 
 import lgcns.domain.blog.ctrl.front.FrontCtrl;
+import lgcns.domain.blog.domain.dto.BlogResponseDTO;
 import lombok.Builder;
 
 // @Builder
@@ -62,6 +64,15 @@ public class BlogView {
     public void list() {
         System.out.println();
         System.out.println(">>>> 데이터 출력 <<<<");
+
+        List<BlogResponseDTO> list = front.list("list");
+        //기존 출력 방식
+        /* for(BlogResponseDTO data : list){
+            System.out.println(data);
+        } */
+        //Stream API 출력 방식
+        list.stream()
+            .forEach(System.out::println);
     }
 
     public void read()  {

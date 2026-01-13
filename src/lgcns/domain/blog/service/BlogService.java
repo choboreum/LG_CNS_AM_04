@@ -1,7 +1,10 @@
 package lgcns.domain.blog.service;
 
+import java.util.List;
+
 import lgcns.domain.blog.dao.BlogMapper;
 import lgcns.domain.blog.domain.dto.BlogRequestDTO;
+import lgcns.domain.blog.domain.dto.BlogResponseDTO;
 import lombok.Builder;
 
 public class BlogService { //db나 레퍼지토리에 데이터를 전달하는 역할과 데이터를 전달했으면 반환받는 역할까지 전담
@@ -22,5 +25,10 @@ public class BlogService { //db나 레퍼지토리에 데이터를 전달하는 
         */
 
         return blogMapper.insert(blogRequestDTO);
+    }
+
+    public List<BlogResponseDTO> list(){
+        System.out.println(">>>> BlogList");
+        return blogMapper.list();
     }
 }
