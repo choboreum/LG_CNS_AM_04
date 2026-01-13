@@ -142,7 +142,16 @@ public class BlogView {
         System.out.println();
         System.out.println(">>>> post search writer <<<<");
         
+        System.out.println();
         System.out.print(">>> 작성자 입력 : "); 
         String writer = scan.nextLine() ; 
+
+        List<BlogResponseDTO> list = front.search("search", writer);
+        if(list != null){
+            list.stream()
+                .forEach(System.out::println);
+        } else {
+            System.out.println(">>> 작성자를 찾지 못했습니다.");
+        }
     }
 }

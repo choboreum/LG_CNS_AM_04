@@ -4,6 +4,7 @@ import java.util.List;
 
 import lgcns.domain.blog.ctrl.BlogInsertCtrl;
 import lgcns.domain.blog.ctrl.BlogListCtrl;
+import lgcns.domain.blog.ctrl.BlogSearchCtrl;
 import lgcns.domain.blog.domain.dto.BlogRequestDTO;
 import lgcns.domain.blog.domain.dto.BlogResponseDTO;
 import lgcns.domain.blog.factory.BlogFactory;
@@ -34,5 +35,14 @@ public class FrontCtrl {
         BlogListCtrl blogListCtrl = (BlogListCtrl)factory.getBlogBean(requestPath);
     
         return blogListCtrl.list();
+    }
+
+    // 작성자 찾기
+    public List<BlogResponseDTO> search(String requestPath, String writer){
+        System.out.println(">>>> factory search");
+
+        BlogSearchCtrl blogSearchCtrl = (BlogSearchCtrl)factory.getBlogBean(requestPath);
+        
+        return blogSearchCtrl.search(writer);
     }
 }

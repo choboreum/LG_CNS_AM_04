@@ -47,4 +47,14 @@ public class BlogMapper {
                                             .toList();
         return result;
     }
+    
+    public List<BlogResponseDTO> search(String writer){
+        System.out.println(">>>> BlogSearchCtrl");
+
+        List<BlogResponseDTO> result = blogs.stream()
+                                            .filter(dto -> dto.getWriter().equals(writer))
+                                            .map(BlogRequestDTO::toResponseDTO)
+                                            .toList();
+        return result;
+    }
 }
