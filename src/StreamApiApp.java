@@ -1,5 +1,6 @@
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import lgcns.domain.function.InspireFuncion;
@@ -26,5 +27,9 @@ public class StreamApiApp {
         Function<String, Integer> function = (str) -> str.length();
         int len = function.apply("lgcns inspire");
         System.out.println(len);
+
+        System.out.print(">>> Predicate : ");
+        Predicate<String> predicate = (str) -> str.equals("lgcns");
+        System.out.println(predicate.test("inspire"));
     }
 }
