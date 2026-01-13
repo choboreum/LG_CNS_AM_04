@@ -19,8 +19,6 @@ public class BlogMapper {
     public int insert(BlogRequestDTO blogRequestDTO){
         System.out.println(">>>> BlogMapper");
         int result = 0;
-        BlogService blogService = BlogService.builder().build();
-        result = blogService.insert(blogRequestDTO);
         return result;
     }
     
