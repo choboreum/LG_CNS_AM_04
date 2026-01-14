@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -7,6 +8,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import lgcns.domain.blog.domain.dto.BlogRequestDTO;
+import lgcns.domain.blog.domain.dto.BlogResponseDTO;
 import lgcns.domain.function.InspireFuncion;
 
 public class StreamApiApp {
@@ -63,5 +65,20 @@ public class StreamApiApp {
                                     .toList();
         filters.stream().forEach(System.out::println);
         
+        System.out.print(">>> Optional : ");
+        Optional<String> op01 = Optional.of("lgcns");
+        System.out.println(op01);
+        
+        if(op01.isPresent()){
+            System.out.println(op01.get());
+        }
+
+        Optional<BlogResponseDTO> op02 = Optional.empty();
+        if(op02.isPresent()){
+            System.out.println(op02.get().getTitle());
+        } else{
+            System.out.println("npe");
+        }
+        System.out.println(">>>> Optional end");
     }
 }
