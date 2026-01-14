@@ -50,9 +50,18 @@ public class StreamApiApp {
         List<BlogRequestDTO> list = Arrays.asList(BlogRequestDTO.builder().writer("writer01").build(),
                                                 BlogRequestDTO.builder().writer("writer02").build(),
                                                 BlogRequestDTO.builder().writer("writer03").build());
+
+        System.out.print(">>> map : ");
         List<String> writers = list.stream()
                                     .map(BlogRequestDTO::getWriter)
                                     .toList();
         writers.stream().forEach(System.out::println);
+        
+        System.out.print(">>> filter : ");
+        List<BlogRequestDTO> filters = list.stream()
+                                    .filter(obj -> obj.getWriter().length() > 2)
+                                    .toList();
+        filters.stream().forEach(System.out::println);
+        
     }
 }
