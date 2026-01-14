@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+import lgcns.domain.blog.domain.dto.BlogRequestDTO;
 import lgcns.domain.function.InspireFuncion;
 
 public class StreamApiApp {
@@ -45,5 +46,13 @@ public class StreamApiApp {
             .filter( str -> str.length() > 2)
             .sorted()
             .forEach(System.out::println);
+
+        List<BlogRequestDTO> list = Arrays.asList(BlogRequestDTO.builder().writer("writer01").build(),
+                                                BlogRequestDTO.builder().writer("writer02").build(),
+                                                BlogRequestDTO.builder().writer("writer03").build());
+        List<String> writers = list.stream()
+                                    .map(BlogRequestDTO::getWriter)
+                                    .toList();
+        writers.stream().forEach(System.out::println);
     }
 }
