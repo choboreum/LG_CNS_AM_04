@@ -42,7 +42,8 @@ public class StreamApiApp {
         Stream<String> stream = brands.stream();
         //stream.forEach( (str) -> System.out.println(str) );
         brands.stream()
-            .forEach(str -> System.out.println(str));
-
+            .filter( str -> str.length() > 2)
+            .sorted()
+            .forEach(System.out::println);
     }
 }
