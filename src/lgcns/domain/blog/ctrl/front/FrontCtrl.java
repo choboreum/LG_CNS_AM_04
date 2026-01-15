@@ -3,6 +3,7 @@ package lgcns.domain.blog.ctrl.front;
 import java.util.List;
 import java.util.Optional;
 
+import lgcns.domain.blog.ctrl.BlogDeleteCtrl;
 import lgcns.domain.blog.ctrl.BlogInsertCtrl;
 import lgcns.domain.blog.ctrl.BlogListCtrl;
 import lgcns.domain.blog.ctrl.BlogReadCtrl;
@@ -55,5 +56,14 @@ public class FrontCtrl {
         BlogReadCtrl blogReadCtrl = (BlogReadCtrl)factory.getBlogBean(requestPath);
         
         return blogReadCtrl.read(id);
+    }
+
+    // 삭제
+    public int delete(String requestPath, int id){
+        System.out.println(">>>> factory delete");
+
+        BlogDeleteCtrl blogDeleteCtrl = (BlogDeleteCtrl)factory.getBlogBean(requestPath);
+        
+        return blogDeleteCtrl.delete(id);
     }
 }

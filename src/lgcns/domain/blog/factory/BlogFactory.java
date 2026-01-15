@@ -3,6 +3,7 @@ package lgcns.domain.blog.factory;
 import java.util.HashMap;
 import java.util.Map;
 
+import lgcns.domain.blog.ctrl.BlogDeleteCtrl;
 import lgcns.domain.blog.ctrl.BlogInsertCtrl;
 import lgcns.domain.blog.ctrl.BlogListCtrl;
 import lgcns.domain.blog.ctrl.BlogReadCtrl;
@@ -23,6 +24,7 @@ public class BlogFactory {
         map.put("list", new BlogListCtrl(blogService));
         map.put("search", new BlogSearchCtrl(blogService));
         map.put("read", new BlogReadCtrl(blogService));
+        map.put("delete", new BlogDeleteCtrl(blogService));
     }
 
     public static BlogFactory getInstance(){

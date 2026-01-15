@@ -70,4 +70,18 @@ public class BlogMapper {
 
         return result;
     }
+
+    public int delete(int id){
+        System.out.println(">>> BlogMapper delete");
+
+        /* 
+        boolean deleteFlag = blogs.stream()
+            .filter(dto -> dto.getId() != id)
+            .toList();
+        */
+
+        boolean deleteFlag = blogs.removeIf(dto -> dto.getId() == id);
+        if(deleteFlag) return 1;
+        else return 0;
+    }
 }

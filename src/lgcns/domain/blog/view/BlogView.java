@@ -126,6 +126,9 @@ public class BlogView {
         
         System.out.print(">>> 삭제할 게시글의 아이디를 입력 : "); 
         int id = Integer.parseInt( scan.nextLine() ); 
+        
+        int deleteFlag = front.delete("delete", id);
+        System.out.print((deleteFlag == 1) ? "삭제 성공" : "삭제 실패"); 
     }
 
     /*
