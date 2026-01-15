@@ -1,6 +1,7 @@
 package lgcns.domain.blog.view;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 import lgcns.domain.blog.ctrl.front.FrontCtrl;
@@ -73,6 +74,9 @@ public class BlogView {
         //Stream API 출력 방식
         list.stream()
             .forEach(System.out::println);
+
+        // 특정 속성에 대한 정보만 추출 : map
+        // 특정 조건에 만족하는 (Boolean => true에 해당) : filter
     }
 
     public void read()  {
@@ -81,6 +85,11 @@ public class BlogView {
 
         System.out.print(">>> 게시물 번호 입력 : "); 
         int id = Integer.parseInt( scan.nextLine() ) ; 
+
+        Optional<BlogResponseDTO> result = front.read("read", id);
+        if(result.isPresent()) System.out.println(result.get());
+        else System.out.println(">>> 특정 게시물을 조회할 수 없습니다.");
+
     }
 
     public void insert() {

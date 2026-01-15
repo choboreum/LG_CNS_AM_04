@@ -5,6 +5,7 @@ import java.util.Map;
 
 import lgcns.domain.blog.ctrl.BlogInsertCtrl;
 import lgcns.domain.blog.ctrl.BlogListCtrl;
+import lgcns.domain.blog.ctrl.BlogReadCtrl;
 import lgcns.domain.blog.ctrl.BlogSearchCtrl;
 import lgcns.domain.blog.service.BlogService;
 
@@ -21,6 +22,7 @@ public class BlogFactory {
         // 추후 각각의 컨트롤러를 추가
         map.put("list", new BlogListCtrl(blogService));
         map.put("search", new BlogSearchCtrl(blogService));
+        map.put("read", new BlogReadCtrl(blogService));
     }
 
     public static BlogFactory getInstance(){

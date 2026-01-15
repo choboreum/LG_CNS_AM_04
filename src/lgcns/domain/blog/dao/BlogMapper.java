@@ -2,6 +2,7 @@ package lgcns.domain.blog.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import lgcns.domain.blog.domain.dto.BlogRequestDTO;
 import lgcns.domain.blog.domain.dto.BlogResponseDTO;
@@ -30,6 +31,7 @@ public class BlogMapper {
     public int insert(BlogRequestDTO blogRequestDTO){
         System.out.println(">>>> BlogMapper insert");
         int result = 1; //저장이 되었다는 스위치 전달
+        blogRequestDTO.setId(blogs.size()+1);
         blogs.add(blogRequestDTO);
         return result;
     }
@@ -49,12 +51,23 @@ public class BlogMapper {
     }
     
     public List<BlogResponseDTO> search(String writer){
-        System.out.println(">>>> BlogSearchCtrl");
+        System.out.println(">>>> BlogMapper writer");
 
         List<BlogResponseDTO> result = blogs.stream()
                                             .filter(dto -> dto.getWriter().equals(writer))
                                             .map(BlogRequestDTO::toResponseDTO)
                                             .toList();
+        return result;
+    }
+
+    public Optional<BlogResponseDTO> read(int id){
+        System.out.println(">>> BlogMapper read");
+
+        Optional<BlogResponseDTO> result = blogs.stream()
+                                                .filter(dto -> dto.getId() == id)
+                                                .map(BlogRequestDTO::toResponseDTO)
+                                                .findFirst();
+
         return result;
     }
 }

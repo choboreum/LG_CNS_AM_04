@@ -1,6 +1,7 @@
 package lgcns.domain.blog.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import lgcns.domain.blog.dao.BlogMapper;
 import lgcns.domain.blog.domain.dto.BlogRequestDTO;
@@ -36,5 +37,10 @@ public class BlogService { //db나 레퍼지토리에 데이터를 전달하는 
         System.out.println(">>>> BlogSearchCtrl");
 
         return blogMapper.search(writer);
+    }
+
+    public Optional<BlogResponseDTO> read(int id){
+        System.out.println(">>>> BlogReadCtrl");
+        return blogMapper.read(id);
     }
 }

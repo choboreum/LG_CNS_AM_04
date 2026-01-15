@@ -1,9 +1,11 @@
 package lgcns.domain.blog.ctrl.front;
 
 import java.util.List;
+import java.util.Optional;
 
 import lgcns.domain.blog.ctrl.BlogInsertCtrl;
 import lgcns.domain.blog.ctrl.BlogListCtrl;
+import lgcns.domain.blog.ctrl.BlogReadCtrl;
 import lgcns.domain.blog.ctrl.BlogSearchCtrl;
 import lgcns.domain.blog.domain.dto.BlogRequestDTO;
 import lgcns.domain.blog.domain.dto.BlogResponseDTO;
@@ -44,5 +46,14 @@ public class FrontCtrl {
         BlogSearchCtrl blogSearchCtrl = (BlogSearchCtrl)factory.getBlogBean(requestPath);
         
         return blogSearchCtrl.search(writer);
+    }
+
+    // 조회
+    public Optional<BlogResponseDTO> read(String requestPath, int id){
+        System.out.println(">>>> factory read");
+
+        BlogReadCtrl blogReadCtrl = (BlogReadCtrl)factory.getBlogBean(requestPath);
+        
+        return blogReadCtrl.read(id);
     }
 }
