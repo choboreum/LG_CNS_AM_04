@@ -8,6 +8,7 @@ import lgcns.domain.blog.ctrl.BlogInsertCtrl;
 import lgcns.domain.blog.ctrl.BlogListCtrl;
 import lgcns.domain.blog.ctrl.BlogReadCtrl;
 import lgcns.domain.blog.ctrl.BlogSearchCtrl;
+import lgcns.domain.blog.ctrl.BlogUpdateCtrl;
 import lgcns.domain.blog.domain.dto.BlogRequestDTO;
 import lgcns.domain.blog.domain.dto.BlogResponseDTO;
 import lgcns.domain.blog.factory.BlogFactory;
@@ -65,5 +66,19 @@ public class FrontCtrl {
         BlogDeleteCtrl blogDeleteCtrl = (BlogDeleteCtrl)factory.getBlogBean(requestPath);
         
         return blogDeleteCtrl.delete(id);
+    }
+
+    // 수정
+    public int update(String requestPath, String title, String content, int id){
+        System.out.println(">>>> factory update");
+
+        BlogUpdateCtrl blogUpdateCtrl = (BlogUpdateCtrl)factory.getBlogBean(requestPath);
+        
+        BlogRequestDTO blogRequestDTO = BlogRequestDTO.builder()
+                                                    .id(id)
+                                                    .title(title)
+                                                    .content(content)
+                                                    .build();
+        return blogUpdateCtrl.update(blogRequestDTO);
     }
 }

@@ -148,6 +148,9 @@ public class BlogView {
         String content = scan.nextLine() ;
         System.out.print(">>> 게시글 번호 : "); 
         int    id = Integer.parseInt( scan.nextLine() ) ;
+        
+        int updateFlag = front.update("update", title, content, id);
+        System.out.print((updateFlag == 1) ? "수정 성공" : "수정 실패"); 
     }
 
     public void search() {

@@ -84,4 +84,18 @@ public class BlogMapper {
         if(deleteFlag) return 1;
         else return 0;
     }
+
+    public int update(BlogRequestDTO blogRequestDTO){
+        System.out.println(">>> BlogMapper update");
+
+        return blogs.stream()
+                    .filter( dto -> dto.getId() == blogRequestDTO.getId())
+                    .findFirst()
+                    .map( dto -> {
+                        dto.setTitle(blogRequestDTO.getTitle());
+                        dto.setContent(blogRequestDTO.getContent());
+                        return 1;
+                    })
+                    .orElse(0);
+    }
 }

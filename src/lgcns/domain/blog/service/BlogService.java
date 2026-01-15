@@ -48,4 +48,9 @@ public class BlogService { //db나 레퍼지토리에 데이터를 전달하는 
         System.out.println(">>>> BlogDeleteCtrl");
         return blogMapper.delete(id);
     }
+
+    public int update(BlogRequestDTO blogRequestDTO){
+        System.out.println(">>>> BlogUpdateCtrl");
+        return blogMapper.update(blogRequestDTO);
+    }
 }

@@ -8,6 +8,7 @@ import lgcns.domain.blog.ctrl.BlogInsertCtrl;
 import lgcns.domain.blog.ctrl.BlogListCtrl;
 import lgcns.domain.blog.ctrl.BlogReadCtrl;
 import lgcns.domain.blog.ctrl.BlogSearchCtrl;
+import lgcns.domain.blog.ctrl.BlogUpdateCtrl;
 import lgcns.domain.blog.service.BlogService;
 
 public class BlogFactory {
@@ -25,6 +26,7 @@ public class BlogFactory {
         map.put("search", new BlogSearchCtrl(blogService));
         map.put("read", new BlogReadCtrl(blogService));
         map.put("delete", new BlogDeleteCtrl(blogService));
+        map.put("update", new BlogUpdateCtrl(blogService));
     }
 
     public static BlogFactory getInstance(){
