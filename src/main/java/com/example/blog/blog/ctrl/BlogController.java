@@ -48,9 +48,12 @@ public class BlogController {
 
     // read
     /*
+    // QueryString 방식
     @GetMapping("/read")
     public ResponseEntity<BlogResponseDTO> read(@RequestParam("blogId") Integer blogId){ // json화 하여 데이터를 내려줌 / pk를 받아서 식별하여 데이터를 받음
     */
+
+    // PathVariable 방식
     @GetMapping("/read/{blogId}")
     public ResponseEntity<BlogResponseDTO> read(@PathVariable("blogId") Integer blogId){
         System.out.println(">>>> BlogController read() \n    blogId : " + blogId);
