@@ -3,11 +3,14 @@ package com.example.blog.blog.ctrl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.blog.blog.domain.dto.BlogRequestDTO;
+import com.example.blog.blog.domain.dto.BlogResponseDTO;
 import com.example.blog.service.BlogService;
 
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,15 +29,33 @@ public class BlogController {
     */
     private final BlogService blogService;
 
+    // create
     // status code: 201
     @PostMapping("/write") //action 매핑을 통해서 요청 작업을 수행하는 과정
     public ResponseEntity<Void> write(@RequestBody BlogRequestDTO blogRequestDTO){ //json을 dto로 변환
-        System.out.println(">>>> BlogController write()" + blogRequestDTO);
+        System.out.println(">>>> BlogController write() \nblogRequestDTO : " + blogRequestDTO);
 
         // 서비스와 연계
-        blogService.write(blogRequestDTO);
+        int flag = blogService.write(blogRequestDTO);
+        if(flag != 0){
+            return new ResponseEntity<>(HttpStatus.CREATED); //201
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST); //400
+        }
+    }
 
-        //return new ResponseEntity(HttpStatus.CREATED);
-        return new ResponseEntity<>(HttpStatus.OK);
+    // read
+    @GetMapping("/read")
+    public ResponseEntity<BlogResponseDTO> read(@RequestParam("blogId") Integer blogId){ // json화 하여 데이터를 내려줌 / pk를 받아서 식별하여 데이터를 받음
+        System.out.println(">>>> BlogController read() \nblogId : " + blogId);
+
+        BlogResponseDTO blogResponseDTO = blogService.read(blogId);
+        
+        if(blogResponseDTO != null){
+            return new ResponseEntity<>(blogResponseDTO, HttpStatus.OK); //200
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); //404
+        }
+
     }
 }

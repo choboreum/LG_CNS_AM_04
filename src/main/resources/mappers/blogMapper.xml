@@ -7,4 +7,14 @@
         INSERT INTO BLOG_TBL(TITLE, CONTENT, EMAIL)
         VALUES(#{title}, #{content}, #{email})
     </insert> 
+
+    <!-- readRow --> 
+
+    <select id="readRow"
+            parameterType="java.lang.Integer"
+            resultType="BlogResponseDTO">
+        SELECT BLOGID, TITLE, CONTENT, EMAIL
+        FROM BLOG_TBL
+        WHERE BLOGID = #{blogId}
+    </select>
 </mapper>

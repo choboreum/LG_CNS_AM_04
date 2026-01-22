@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.blog.blog.dao.BlogMapper;
 import com.example.blog.blog.domain.dto.BlogRequestDTO;
+import com.example.blog.blog.domain.dto.BlogResponseDTO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,9 +19,15 @@ public class BlogService {
     */
     private final BlogMapper blogMapper;
 
-    public void write(BlogRequestDTO blogRequestDTO){
+    public int write(BlogRequestDTO blogRequestDTO){
         System.out.println(">>>> BlogService write()");
 
-        blogMapper.insertRow(blogRequestDTO);
+        return blogMapper.insertRow(blogRequestDTO);
+    }
+
+    public BlogResponseDTO read(Integer blogId){
+        System.out.println(">>>> BlogService read()");
+
+        return blogMapper.readRow(blogId);
     }
 }

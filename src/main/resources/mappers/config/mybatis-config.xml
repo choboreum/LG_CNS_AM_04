@@ -4,7 +4,8 @@
 
 <configuration> <!-- 별칭 작업 가능 -->
     <typeAliases>
-        <typeAlias alias="blogRequestDTO" 
-                    type="com.example.blog.blog.domain.dto.BlogRequestDTO"/>
+        <!-- <typeAlias alias="blogRequestDTO" 
+                    type="com.example.blog.blog.domain.dto.BlogRequestDTO"/> -->
+        <package name="com.example.blog.blog.domain.dto" /> <!-- 같은 패키지에 있을 경우 패키지로 묶을 수 있다. -->
     </typeAliases>
 </configuration>
