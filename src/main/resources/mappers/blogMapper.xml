@@ -3,7 +3,7 @@
 
 <mapper namespace="com.example.blog.blog.dao.BlogMapper">
     <insert id="insertRow"
-            parameterType="com.example.blog.blog.domain.dto.BlogRequestDTO"> 
+            parameterType="BlogRequestDTO"> 
         INSERT INTO BLOG_TBL(TITLE, CONTENT, EMAIL)
         VALUES(#{title}, #{content}, #{email})
     </insert> 
