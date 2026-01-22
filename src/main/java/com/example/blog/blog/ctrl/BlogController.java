@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,7 +34,7 @@ public class BlogController {
     // status code: 201
     @PostMapping("/write") //action 매핑을 통해서 요청 작업을 수행하는 과정
     public ResponseEntity<Void> write(@RequestBody BlogRequestDTO blogRequestDTO){ //json을 dto로 변환
-        System.out.println(">>>> BlogController write() \nblogRequestDTO : " + blogRequestDTO);
+        System.out.println(">>>> BlogController write() \n    blogRequestDTO : " + blogRequestDTO);
 
         // 서비스와 연계
         int flag = blogService.write(blogRequestDTO);
@@ -45,9 +46,13 @@ public class BlogController {
     }
 
     // read
+    /*
     @GetMapping("/read")
     public ResponseEntity<BlogResponseDTO> read(@RequestParam("blogId") Integer blogId){ // json화 하여 데이터를 내려줌 / pk를 받아서 식별하여 데이터를 받음
-        System.out.println(">>>> BlogController read() \nblogId : " + blogId);
+    */
+   @GetMapping("/read/{blogId}")
+    public ResponseEntity<BlogResponseDTO> read(@PathVariable("blogId") Integer blogId){
+        System.out.println(">>>> BlogController read() \n    blogId : " + blogId);
 
         BlogResponseDTO blogResponseDTO = blogService.read(blogId);
         
@@ -56,6 +61,5 @@ public class BlogController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND); //404
         }
-
     }
 }
