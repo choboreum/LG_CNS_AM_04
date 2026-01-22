@@ -34,7 +34,7 @@ public class BlogController {
         // 서비스와 연계
         blogService.write(blogRequestDTO);
 
-        //return new ResponseEntity(HttpStatusCode.OK);
+        //return new ResponseEntity(HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
