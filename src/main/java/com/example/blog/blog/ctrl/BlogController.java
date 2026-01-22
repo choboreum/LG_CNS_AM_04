@@ -3,6 +3,7 @@ package com.example.blog.blog.ctrl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,7 +51,7 @@ public class BlogController {
     @GetMapping("/read")
     public ResponseEntity<BlogResponseDTO> read(@RequestParam("blogId") Integer blogId){ // json화 하여 데이터를 내려줌 / pk를 받아서 식별하여 데이터를 받음
     */
-   @GetMapping("/read/{blogId}")
+    @GetMapping("/read/{blogId}")
     public ResponseEntity<BlogResponseDTO> read(@PathVariable("blogId") Integer blogId){
         System.out.println(">>>> BlogController read() \n    blogId : " + blogId);
 
@@ -62,4 +63,17 @@ public class BlogController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND); //404
         }
     }
+
+    // delete
+    @DeleteMapping("/delete/{blogId}")
+    public ResponseEntity<Void> delete(@PathVariable("blogId") Integer blogId){
+        System.out.println(">>>> BlogController delete() \n    blogId : " + blogId);
+
+        int flag = blogService.delete(blogId);
+        if(flag != 0){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT); //204
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); //401
+        }
+    } 
 }

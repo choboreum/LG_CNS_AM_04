@@ -9,7 +9,6 @@
     </insert> 
 
     <!-- readRow --> 
-
     <select id="readRow"
             parameterType="java.lang.Integer"
             resultType="BlogResponseDTO">
@@ -17,4 +16,11 @@
         FROM BLOG_TBL
         WHERE BLOGID = #{blogId}
     </select>
+
+    <!-- deleteRow --> 
+    <delete id="deleteRow"
+            parameterType="java.lang.Integer">
+        DELETE FROM BLOG_TBL
+        WHERE BLOGID = #{blogId}
+    </delete>
 </mapper>

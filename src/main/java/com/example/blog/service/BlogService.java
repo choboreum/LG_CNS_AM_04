@@ -30,4 +30,10 @@ public class BlogService {
 
         return blogMapper.readRow(blogId);
     }
+
+    public int delete(Integer blogId){
+        System.out.println(">>>> BlogService delete()");
+
+        return blogMapper.deleteRow(blogId);
+    }
 }

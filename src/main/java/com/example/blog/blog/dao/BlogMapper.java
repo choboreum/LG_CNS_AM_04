@@ -11,4 +11,6 @@ public interface BlogMapper {
     public int insertRow(BlogRequestDTO blogRequestDTO);
     
     public BlogResponseDTO readRow(Integer blogId);
+    
+    public int deleteRow(Integer blogId);
 }
