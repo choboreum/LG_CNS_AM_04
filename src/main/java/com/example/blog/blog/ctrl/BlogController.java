@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.blog.blog.domain.dto.BlogRequestDTO;
 import com.example.blog.service.BlogService;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import org.springframework.web.bind.annotation.RequestBody;
 import jakarta.annotation.Resource;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @RestController //restApi 통신에서 사용, json
-@RequestMapping(" blogs") //url 패턴 매핑을 통해서 controller을 찾는 과정
+@RequestMapping("/blogs") //url 패턴 매핑을 통해서 controller을 찾는 과정
 @RequiredArgsConstructor // final로정의된 객체를 생성자로 만들어 받는 구조
 public class BlogController {
     
@@ -34,7 +34,7 @@ public class BlogController {
         // 서비스와 연계
         blogService.write(blogRequestDTO);
 
-        //return new ResponseEntity(HttpStatus.OK);
+        //return new ResponseEntity(HttpStatus.CREATED);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
