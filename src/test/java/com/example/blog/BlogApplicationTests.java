@@ -95,4 +95,17 @@ class BlogApplicationTests {
 		assertEquals(2, list.size());
 		verify(blogMapper).listRow();
 	}
+	
+	@Test
+	public void blogDeleteGreen() { // 성공케이스
+		// given
+		when(blogMapper.deleteRow(3)).thenReturn(1);  //여기서 1은 성공의 데이터가 넘어옴을 의미
+
+		// when
+		int result = blogService.delete(1);
+
+
+		// then
+		assertEquals(1, result);
+	}
 }
