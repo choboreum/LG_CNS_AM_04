@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -67,7 +69,7 @@ class BlogApplicationTests {
 		BlogResponseDTO blogResponseDTO = BlogResponseDTO.builder()
 													.blogId(3)
 													.build();
-		when(blogMapper.readRow(3)).thenReturn(blogResponseDTO); //여기서 1은 성공의 데이터가 넘어옴을 의미
+		when(blogMapper.readRow(3)).thenReturn(blogResponseDTO); 
 		
 		
 		// when
@@ -76,5 +78,21 @@ class BlogApplicationTests {
 
 		// then
 		assertEquals(3, result.getBlogId());
+	}
+	
+	@Test
+	public void blogListGreen() { // 성공케이스
+		// given
+		when(blogMapper.listRow()).thenReturn(List.of(
+			BlogResponseDTO.builder().build(),
+			BlogResponseDTO.builder().build()
+		)); 
+		
+		// when
+		List<BlogResponseDTO> list = blogService.list();
+
+		// then
+		assertEquals(2, list.size());
+		verify(blogMapper).listRow();
 	}
 }
