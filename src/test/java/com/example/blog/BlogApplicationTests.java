@@ -1,6 +1,8 @@
 package com.example.blog;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyMap;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -107,5 +109,29 @@ class BlogApplicationTests {
 
 		// then
 		assertEquals(1, result);
+	}
+	
+	@Test
+	public void blogUpdateGreen() { // 성공케이스
+		// given
+		BlogRequestDTO blogRequestDTO = BlogRequestDTO.builder()
+													.title("update-title")
+													.content("update-cont")
+													.build();
+		when(blogMapper.updateRow(anyMap())).thenReturn(1);  //여기서 1은 성공의 데이터가 넘어옴을 의미
+
+		// when
+		int result = blogService.update(1, blogRequestDTO);
+
+
+		// then
+		assertEquals(1, result);
+		verify(blogMapper).updateRow(argThat(map -> 
+			map.get("blogId").equals(1)
+			&&
+			map.get("title").equals("update-title")
+			&&
+			map.get("content").equals("update-cont")
+		));
 	}
 }
