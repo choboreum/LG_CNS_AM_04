@@ -60,4 +60,21 @@ class BlogApplicationTests {
 	@Test
 	public void blogWriteRed() { // 실패케이스
 	}
+	
+	@Test
+	public void blogReadGreen() { // 성공케이스
+		// given
+		BlogResponseDTO blogResponseDTO = BlogResponseDTO.builder()
+													.blogId(3)
+													.build();
+		when(blogMapper.readRow(3)).thenReturn(blogResponseDTO); //여기서 1은 성공의 데이터가 넘어옴을 의미
+		
+		
+		// when
+		BlogResponseDTO result = blogService.read(3);
+
+
+		// then
+		assertEquals(3, result.getBlogId());
+	}
 }
