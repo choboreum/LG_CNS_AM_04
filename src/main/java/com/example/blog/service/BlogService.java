@@ -1,6 +1,8 @@
 package com.example.blog.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,5 +51,17 @@ public class BlogService {
         System.out.println(">>>> BlogService list()");
 
         return blogMapper.listRow();
+    }
+
+    @Transactional
+    public int update(Integer blogId, BlogRequestDTO blogRequestDTO){
+        System.out.println(">>>> BlogService update()");
+        Map<String, Object> map = new HashMap<>();
+        map.put("blogId", blogId);
+        map.put("title", blogRequestDTO.getTitle());
+        map.put("content", blogRequestDTO.getContent());
+
+        return blogMapper.updateRow(map); //blogId를 blogRequestDTO에 담아 매개변수 하나만 보내준다.
+                                                    //그럼 blogRequestDTO에는 SETTER 필요
     }
 }

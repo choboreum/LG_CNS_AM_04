@@ -30,4 +30,13 @@
         SELECT BLOGID, TITLE, CONTENT, EMAIL
         FROM BLOG_TBL
     </select>
+
+    <!-- updateRow --> 
+    <update id="updateRow"
+            parameterType="BlogRequestDTO">
+        UPDATE BLOG_TBL
+        SET TITLE = #{title}
+            , CONTENT = #{content}
+        WHERE BLOGID = #{blogId}
+    </update>
 </mapper>

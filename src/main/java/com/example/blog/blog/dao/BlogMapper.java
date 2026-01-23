@@ -1,6 +1,7 @@
 package com.example.blog.blog.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -17,4 +18,6 @@ public interface BlogMapper {
     public int deleteRow(Integer blogId);
 
     public List<BlogResponseDTO> listRow();
+
+    public int updateRow(Map<String, Object> blogRequestDTO); // ORM으로 데이터를 전달 할 수 있는 객체는 하나
 }
