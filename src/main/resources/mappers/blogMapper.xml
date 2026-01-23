@@ -23,4 +23,11 @@
         DELETE FROM BLOG_TBL
         WHERE BLOGID = #{blogId}
     </delete>
+
+    <!-- listRow --> 
+    <select id="listRow"
+            resultType="BlogResponseDTO">
+        SELECT BLOGID, TITLE, CONTENT, EMAIL
+        FROM BLOG_TBL
+    </select>
 </mapper>

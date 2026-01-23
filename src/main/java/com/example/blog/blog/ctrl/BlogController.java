@@ -1,5 +1,7 @@
 package com.example.blog.blog.ctrl;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -76,7 +78,20 @@ public class BlogController {
         if(flag != 0){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT); //204
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND); //401
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); //404
         }
     } 
+
+    @GetMapping("/list")
+    public ResponseEntity<List<BlogResponseDTO>> list(){
+        System.out.println(">>>> BlogController list()");
+
+        List<BlogResponseDTO> list = blogService.list();
+
+        if(list.size() != 0){
+            return ResponseEntity.status(HttpStatus.OK).body(list);
+        } else {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
+    }
 }

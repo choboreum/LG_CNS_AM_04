@@ -1,5 +1,7 @@
 package com.example.blog.blog.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.blog.blog.domain.dto.BlogRequestDTO;
@@ -13,4 +15,6 @@ public interface BlogMapper {
     public BlogResponseDTO readRow(Integer blogId);
     
     public int deleteRow(Integer blogId);
+
+    public List<BlogResponseDTO> listRow();
 }
