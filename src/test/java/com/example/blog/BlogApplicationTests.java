@@ -1,8 +1,10 @@
 package com.example.blog;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -63,6 +65,16 @@ class BlogApplicationTests {
 
 	@Test
 	public void blogWriteRed() { // 실패케이스
+		// title null인 유효성 검증 실패
+		BlogRequestDTO blogRequestDTO = BlogRequestDTO.builder()
+													.content("title null")
+													.build();
+		
+		//when
+
+		//then
+		assertThrows(NullPointerException.class, () -> blogService.write(blogRequestDTO));
+		verify(blogMapper, never()).insertRow(blogRequestDTO);
 	}
 	
 	@Test
