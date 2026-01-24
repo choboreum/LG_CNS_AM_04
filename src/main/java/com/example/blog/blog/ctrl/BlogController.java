@@ -18,6 +18,12 @@ import com.example.blog.blog.domain.dto.BlogRequestDTO;
 import com.example.blog.blog.domain.dto.BlogResponseDTO;
 import com.example.blog.service.BlogService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import jakarta.annotation.Resource;
 import lombok.NoArgsConstructor;
@@ -26,6 +32,8 @@ import lombok.RequiredArgsConstructor;
 @RestController //restApi 통신에서 사용, json
 @RequestMapping("/blogs") //url 패턴 매핑을 통해서 controller을 찾는 과정
 @RequiredArgsConstructor // final로정의된 객체를 생성자로 만들어 받는 구조
+@Tag(name ="Blog API", description = "Blog API 명세서")
+
 public class BlogController {
     
     /*
@@ -36,6 +44,16 @@ public class BlogController {
 
     // create
     // status code: 201
+    @ApiResponses(
+        {
+            @ApiResponse(responseCode = "201", description = "데이터 입력 성공"),
+            @ApiResponse(responseCode = "400", description = "데이터 입력 실패")
+        }
+    )
+    @Operation(
+        summary = "블로그 글 작성",
+        description = "글을 신규로 작성한다.(title not null)"
+    )
     @PostMapping("/write") //action 매핑을 통해서 요청 작업을 수행하는 과정
     public ResponseEntity<Void> write(@RequestBody BlogRequestDTO blogRequestDTO){ //json을 dto로 변환
         System.out.println(">>>> BlogController write() \n    blogRequestDTO : " + blogRequestDTO);
@@ -58,7 +76,7 @@ public class BlogController {
 
     // PathVariable 방식
     @GetMapping("/read/{blogId}")
-    public ResponseEntity<BlogResponseDTO> read(@PathVariable("blogId") Integer blogId){
+    public ResponseEntity<BlogResponseDTO> read(@Parameter(description = "블로그 ID", example = "1") @PathVariable("blogId") Integer blogId){
         System.out.println(">>>> BlogController read() \n    blogId : " + blogId);
 
         BlogResponseDTO blogResponseDTO = blogService.read(blogId);
