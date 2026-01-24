@@ -20,6 +20,8 @@ import com.example.blog.service.BlogService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -75,6 +77,15 @@ public class BlogController {
     */
 
     // PathVariable 방식
+    @ApiResponses(
+        {
+            @ApiResponse(responseCode = "201", 
+                description = "데이터 입력 성공",
+                content = @Content(schema = @Schema(implementation = BlogResponseDTO.class))
+            ),
+            @ApiResponse(responseCode = "400", description = "데이터 입력 실패")
+        }
+    )
     @GetMapping("/read/{blogId}")
     public ResponseEntity<BlogResponseDTO> read(@Parameter(description = "블로그 ID", example = "1") @PathVariable("blogId") Integer blogId){
         System.out.println(">>>> BlogController read() \n    blogId : " + blogId);
