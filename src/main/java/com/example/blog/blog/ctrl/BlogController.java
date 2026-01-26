@@ -57,7 +57,15 @@ public class BlogController {
         description = "글을 신규로 작성한다.(title not null)"
     )
     @PostMapping("/write") //action 매핑을 통해서 요청 작업을 수행하는 과정
-    public ResponseEntity<Void> write(@RequestBody BlogRequestDTO blogRequestDTO){ //json을 dto로 변환
+    public ResponseEntity<Void> write(
+        //@io.swagger.v3.annotations.parameters.RequestBody(
+        @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            description = "블로그 작성 요청 DTO",
+            required = true,
+            content = @Content(
+                schema = @Schema(implementation = BlogRequestDTO.class)
+            )
+        ) @RequestBody BlogRequestDTO blogRequestDTO){ //json을 dto로 변환
         System.out.println(">>>> BlogController write() \n    blogRequestDTO : " + blogRequestDTO);
 
         // 서비스와 연계
