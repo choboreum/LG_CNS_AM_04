@@ -1,5 +1,8 @@
 package com.example.blog.user.ctrl;
 
+import java.util.Map;
+
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.blog.blog.domain.dto.BlogRequestDTO;
 import com.example.blog.service.BlogService;
 import com.example.blog.user.domain.dto.UserRequestDTO;
+import com.example.blog.user.domain.dto.UserResponseDTO;
 import com.example.blog.user.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -53,7 +57,12 @@ public class UserController {
         ) @RequestBody UserRequestDTO userRequestDTO){ //json을 dto로 변환
         System.out.println(">>>> BlogController join() \n    userRequestDTO : " + userRequestDTO);
 
-        return null;
+        int flag = userService.join(userRequestDTO);
+        if(flag != 0){
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     // login
@@ -68,8 +77,8 @@ public class UserController {
         summary = "로그인",
         description = "로그인(email, password)"
     )
-    @GetMapping("/login") 
-    public ResponseEntity<Void> login(
+    @PostMapping("/login") 
+    public ResponseEntity<UserResponseDTO> login(
         @io.swagger.v3.oas.annotations.parameters.RequestBody(
             description = "사용자 로그인 DTO",
             required = true,
@@ -79,7 +88,12 @@ public class UserController {
         ) @RequestBody UserRequestDTO userRequestDTO){ //json을 dto로 변환
         System.out.println(">>>> BlogController login() \n    userRequestDTO : " + userRequestDTO);
 
-        return null;
+        Map<String, Object> map = userService.login(userRequestDTO);
+        
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization" , "Bearer " + (String)(map.get("access")) );
+        return ResponseEntity.status(HttpStatus.OK)
+                            .headers(headers)
+                            .body((UserResponseDTO)(map.get("response")));
     }
-
 }
