@@ -8,5 +8,6 @@
                     type="com.example.blog.blog.domain.dto.BlogRequestDTO"/> -->
         <package name="com.example.blog.blog.domain.dto" /> <!-- 같은 패키지에 있을 경우 패키지로 묶을 수 있다. : blog package -->
         <package name="com.example.blog.comment.domain.dto" /> <!-- 같은 패키지에 있을 경우 패키지로 묶을 수 있다. : comment package-->
+        <package name="com.example.blog.user.domain.dto" /> <!-- 같은 패키지에 있을 경우 패키지로 묶을 수 있다. : user package-->
     </typeAliases>
 </configuration>
