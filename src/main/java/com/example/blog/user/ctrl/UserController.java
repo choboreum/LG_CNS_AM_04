@@ -69,7 +69,7 @@ public class UserController {
     // status code: 201
     @ApiResponses(
         {
-            @ApiResponse(responseCode = "201", description = "데이터 입력 성공"),
+            @ApiResponse(responseCode = "200", description = "로그인 성공"),
             @ApiResponse(responseCode = "400", description = "데이터 입력 실패")
         }
     )
