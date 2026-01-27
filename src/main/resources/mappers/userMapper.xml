@@ -7,7 +7,7 @@
     <insert id="insertRow"
             parameterType="UserRequestDTO">
         INSERT INTO USER_TBL(EMAIL, PASSWORD, NAME)
-        VALUES(#{emil}, #{password}, #{name})
+        VALUES(#{email}, #{password}, #{name})
     </insert>
 
     <!-- selectRow --> 

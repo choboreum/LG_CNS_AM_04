@@ -12,5 +12,5 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserRequestDTO {
-    private String email, pass, name;
+    private String email, password, name;
 }
