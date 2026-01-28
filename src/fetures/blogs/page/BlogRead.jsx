@@ -154,6 +154,8 @@ const BlogRead = () => {
  */
   const commentHandler = async(blogId, content) => { //댓글 입력 핸들러
     console.log(blogId, content)
+    /*
+    // json server version
     await api.post('/comments',{
         id : Date.now(),
         content : content,
@@ -163,9 +165,9 @@ const BlogRead = () => {
         console.log(response);
         console.log(response.data);
 
-        /* //아래 두 함수로 사용하자면, 기능 구현은 가능은 하지만 전체 렌더링이 되는 방법이므로 지양하는 방법은 아니다.
+        / * //아래 두 함수로 사용하자면, 기능 구현은 가능은 하지만 전체 렌더링이 되는 방법이므로 지양하는 방법은 아니다.
         getBlog();
-        setComment(''); */ 
+        setComment(''); * / 
 
 
         // 부분 리랜더링을 위한 기본패턴(response.data가 배열일 경우) => json(객체로 구성됨)이 아닌 백엔드 서버가 구성 되어 있을 경우 가능 
@@ -183,6 +185,26 @@ const BlogRead = () => {
       .catch((err)=>{
         console.log(err)
       })
+      */
+
+      // spring version
+      await api.post('/blogs/comments/write',{
+          content : content,
+          blogId : blogId,
+        })
+        .then((response)=>{ // 데이터를 가져온 후 해당 데이터를 state로 변경
+          console.log(response);
+          console.log(response.data);
+          
+          if(response.status === 201){
+            setComments(response.data);
+            setComment(''); 
+          }
+
+        })
+        .catch((err)=>{
+          console.log(err)
+        })
     }
 
     // 댓글 삭제 이벤트
