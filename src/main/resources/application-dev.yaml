@@ -1,0 +1,29 @@
+spring:
+    # profile settings
+    config:
+        activate:
+            on-profile: dev
+
+    # mariadb settings
+    datasource:
+        # 접근하고 싶은 벤더사
+        driver-class-name: org.mariadb.jdbc.Driver 
+        # db접근하는 경로
+        url: jdbc:mariadb://localhost:3306/inspire   # 마지막은 DB 이름
+        # 유저정보
+        username: root
+        password: 1004qhfma!
+
+    # redis
+    # docker exec -it redis-container redis-cli
+    data : 
+        redis:
+            host: localhost
+            port: 6379
+            password:
+            timeout: 6000ms
+
+# mybatis settings
+mybatis:
+    mapper-locations: /mappers/**/*Mapper.xml
+    config-location: classpath:/mappers/config/mybatis-config.xml
