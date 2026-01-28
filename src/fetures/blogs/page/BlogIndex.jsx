@@ -48,11 +48,15 @@ const BlogIndex = () => {
 
     // token 정보 가져오기
     const email = localStorage.getItem("token");
-    console.log("token get >>>> ", email);
+    console.log("BlogIndex token get >>>> ", email);
+    const at = localStorage.getItem("at");
+    console.log("BlogIndex access token get >>>> ", at);
 
     const loadDate= async() => { // 데이터와 통신을 해야하기 때문에 async사용
         try{
-            const response = await api.get("/blogs")
+            const response = await api.get("/blogs/list", {
+                headers: {Authorization: at ? at : ""}
+            })
             console.log(response);
             console.log("response data >>>> ", response.data);
 

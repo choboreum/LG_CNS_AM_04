@@ -100,16 +100,16 @@ const SignUp = () =>{
     const handlerSubmit = async(e) => { //서버로 json 형식의 데이터 전달, 비동기 방식의 통신을 지향, 비동기 방식 ???? => async!!
         e.preventDefault(); // button이 가지고 있는 이벤트와 리랜더링의 이벤트 버블링을 막기 위해 사용
         try{
-            const response = await api.post("/users", { // response에 post방식으로 데이터를 전달하고 저장
+            const response = await api.post("/users/join", { // response에 post방식으로 데이터를 전달하고 저장
                 // async로 비동기 통신을 하기 떄문에 await이 필요
                 name : form.name,
                 email : form.email,
                 password : form.password,
             });
-            moveUrl("/login");
             console.log(response);
+            //moveUrl("/login");
         } catch(error) {
-
+          console.log(error)
         }
     }
     return(

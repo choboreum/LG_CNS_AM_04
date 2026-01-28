@@ -100,19 +100,42 @@ const SignIn = () =>{
     const handlerSubmit = async(e) =>{
         e.preventDefault();
         try{
+          /*
+          // json server version
           const response = await api.get("/users", {
               params : {
                   email : form.email,
                   password : form.password,
               }
           })
+          */  
+
+          // spring version
+          const response = await api.post("/users/login", {
+            email : form.email,
+            password : form.password,
+          })
           console.log(response);
 
           if(response.status === 200){
+            /*
             // 인증된 사용자 정보를 공유하기 위해서 데이터를 심어본다면?
             const email = response.data[0].email;
-            localStorage.setItem("token", email)
+            localStorage.setItem("token", email);
             console.log('token set >>>>>', email);
+
+            moveUrl('/blog/index');
+            */
+            
+            // 인증된 사용자 정보 및 access token을 공유하기 데이터를 심어본다면?
+            const email = response.data.email;
+            localStorage.setItem("token", email);
+            console.log('token set >>>>>', email);
+            
+            const at = response.headers.get("authorization");
+            console.log('at >>>>>', at);
+            localStorage.setItem("access_token", at);
+
 
             moveUrl('/blog/index');
           } 

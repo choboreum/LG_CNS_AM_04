@@ -19,13 +19,13 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <>
     {/* // openAPI 적용 예) */}
-    <WeatherPage />
+    {/* <WeatherPage /> *}
 
     {/* // Context/provider 적용 예) */}
     {/* <ContextApp /> */}
 
     {/* // Blog 적용 예) */}
-    {/* <BlogApp /> */}
+    <BlogApp />
   </>
 )
 
