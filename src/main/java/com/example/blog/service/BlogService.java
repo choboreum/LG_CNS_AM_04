@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.blog.blog.dao.BlogMapper;
 import com.example.blog.blog.domain.dto.BlogRequestDTO;
 import com.example.blog.blog.domain.dto.BlogResponseDTO;
+import com.example.blog.comment.dao.CommentMapper;
+import com.example.blog.comment.domain.dto.CommentResponseDTO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,6 +26,7 @@ public class BlogService {
     private BlogMapper blogMapper;
     */
     private final BlogMapper blogMapper;
+    private final CommentMapper commentMapper;
 
     @Transactional 
     public int write(BlogRequestDTO blogRequestDTO){
@@ -36,7 +39,17 @@ public class BlogService {
     public BlogResponseDTO read(Integer blogId){
         System.out.println(">>>> BlogService read()");
 
-        return blogMapper.readRow(blogId);
+        BlogResponseDTO blogResponseDTO = blogMapper.readRow(blogId);
+
+        if(blogResponseDTO == null) {
+            throw new RuntimeException("게시글 없음");
+        }
+        List<CommentResponseDTO> comments = commentMapper.listRow(blogResponseDTO.getBlogId());
+        System.out.println("commentResponseDTO" + comments);
+
+        blogResponseDTO.setComments(comments);
+
+        return blogResponseDTO;
     }
 
     @Transactional 
