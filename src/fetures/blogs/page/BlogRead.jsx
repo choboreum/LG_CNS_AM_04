@@ -73,12 +73,14 @@ const WelcomeMessage = styled.div`
 
 const BlogRead = () => {
   // useParams : url에서 전달되는 파라미터를 전달 받을 수 있는 hook
-  const {id} = useParams();
-  console.log("content params : ", id);
+  const {blogId} = useParams();
+  console.log("content params : ", blogId);
 
   // token 정보 가져오기
   const email = localStorage.getItem("token");
   console.log("BlogRead token get >>>> ", email);
+  const at = localStorage.getItem("access_token");
+  console.log("BlogIndex access token get >>>> ", at);
 
   const [blog, setBlog] = useState({});
   const [comments, setComments] = useState([]); //작성된 댓글들에 관련된 변수
@@ -98,6 +100,8 @@ const BlogRead = () => {
      *  - embed를 이용해서 특정블로그의 comments를 함께 가져와본다면
      *  api.get(`/blogs/${id}?_embed=comments`)
      */
+
+    /* // json server version
     //await api.get(`/blogs/${id}`)
     await api.get(`/blogs/${id}?_embed=comments`)
       .then((response)=>{ // 데이터를 가져온 후 해당 데이터를 state로 변경
@@ -114,6 +118,27 @@ const BlogRead = () => {
       })
       .catch((err)=>{
         console.log(err)
+      })
+    */
+
+    // Spring version
+    await api.get(`/blogs/read/${blogId}`, {
+        headers: {Authorization: at ? at : ""}
+      })
+      .then((response)=>{ // 데이터를 가져온 후 해당 데이터를 state로 변경
+        console.log(response);
+        console.log(response.data);
+
+        setBlog({
+          id: response.data.blogId,
+          title: response.data.title,
+          content: response.data.content,
+        })
+
+        setComments(response.data.comments || []); // 댓글이 없는 경우를 위해 비어있는 배열 추가
+      })
+      .catch((err)=>{
+        console.log(">>>> BlogRead getBlog err : " , err); 
       })
   }
 

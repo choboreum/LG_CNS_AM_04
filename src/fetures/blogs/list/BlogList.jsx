@@ -23,7 +23,7 @@ const BlogList = (props) => {
             {
                 props.blogs.map( (blog, i) => {
                     return(
-                        <BlogItem key={blog.id} blog={blog} />
+                        <BlogItem key={blog.i} blog={blog} />
                     )
                 })
             }

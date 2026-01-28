@@ -47,10 +47,13 @@ const BlogWrite = () => {
     // token 정보 가져오기
     const email = localStorage.getItem("token");
     console.log("Blog Write token get >>>> ", email);
+    const at = localStorage.getItem("access_token");
+    console.log("BlogIndex access token get >>>> ", at);
 
     const id = Date.now();
 
     const saveHandler = async() => {
+        /*
         //try{} catch{}방식
         try{
             const response = await api.post("/blogs", {
@@ -65,9 +68,10 @@ const BlogWrite = () => {
         } catch(err){
             console.log(err);
         }
-
+        */
+        
         /*
-        //.then.catch방식
+        //.then.catch방식 ========> json server version
         await api.post("/blogs", {
             id: id,
             title: title,
@@ -81,6 +85,22 @@ const BlogWrite = () => {
             console.log(err);
         })
         */
+
+        // Spring version
+        await api.post("/blogs/write", {
+            email: email,
+            title: title,
+            content: content,
+        }, {
+            headers: {Authorization: at ? at : ""}
+        })
+        .then( (response) =>{
+            console.log(response.status);
+            moveUrl('/blog/index');
+        })
+        .catch((err) =>{
+            console.log(err);
+        })
     }
 
     return (

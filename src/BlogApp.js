@@ -24,7 +24,7 @@ const BlogApp= () => {
 
                 <Route path='/blog/index' element={ <BlogIndex />} />
                 <Route path='/blog/write' element={ <BlogWrite />} />
-                <Route path='/blog/read/:id' element={ <BlogRead />} />
+                <Route path='/blog/read/:blogId' element={ <BlogRead />} />
             </Routes>
         </BrowserRouter>
         </>

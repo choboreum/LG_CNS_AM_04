@@ -20,12 +20,14 @@ const TitleText = styled.p`
 `
 
 
-const BlogItem = (props) => {
+const BlogItem = ({blog}) => {
     const moveUrl = useNavigate();
+    console.log(">>>> BlogItem : blog blogId" , blog.blogId ) ;  
+    
     return (
-        <Wrapper onClick={() =>moveUrl(`/blog/read/${props.blog.id}`)}>
+        <Wrapper onClick={() =>moveUrl(`/blog/read/${blog.blogId}`)}>
             <TitleText>
-                {props.blog.title}
+                {blog.title}
             </TitleText>
         </Wrapper>
     )
