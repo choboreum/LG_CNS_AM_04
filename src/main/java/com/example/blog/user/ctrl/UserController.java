@@ -86,12 +86,20 @@ public class UserController {
                 schema = @Schema(implementation = UserRequestDTO.class)
             )
         ) @RequestBody UserRequestDTO userRequestDTO){ //json을 dto로 변환
-        System.out.println(">>>> BlogController login() \n    userRequestDTO : " + userRequestDTO);
-
+        
         Map<String, Object> map = userService.login(userRequestDTO);
+
+        System.out.println(">>>> BlogController login() \n    body : " + (UserResponseDTO)(map.get("response")));
+        System.out.println(">>>> BlogController login() \n    at : " + (String)(map.get("access")));
+        System.out.println(">>>> BlogController login() \n    rt : " + (String)(map.get("refresh")));
+
         
         HttpHeaders headers = new HttpHeaders();
+        
         headers.add("Authorization" , "Bearer " + (String)(map.get("access")) );
+        headers.add("Refresh-Token", (String)(map.get("access")) );
+        headers.add("Access-Control-Expose-Headers", "Authorization, Refresh-Token");
+        
         return ResponseEntity.status(HttpStatus.OK)
                             .headers(headers)
                             .body((UserResponseDTO)(map.get("response")));
