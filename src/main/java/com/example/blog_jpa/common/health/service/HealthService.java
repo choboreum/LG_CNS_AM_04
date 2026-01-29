@@ -57,4 +57,17 @@ public class HealthService {
         HealthResponseDTO healthResponseDTO = HealthResponseDTO.fromEnitity(result);
         return healthResponseDTO;
     }
+    
+    public boolean delete(){
+        /* 
+        HealthEntity healthEntity = healthRepository.findById(1L) //findby기본키
+                                                    .orElseThrow(()-> new RuntimeException("Read Fail"));
+        healthRepository.deleteById(healthEntity.getId());
+        */
+
+        healthRepository.deleteById(2L); // 아래 코드 한줄로 두 세줄과 동일한 기능이 구현된다.
+                                            // delete를 하기 위해선 select(findbyid)먼저 실행 후 delete가 됨을 알 수 있다
+
+        return true;
+    }
 }

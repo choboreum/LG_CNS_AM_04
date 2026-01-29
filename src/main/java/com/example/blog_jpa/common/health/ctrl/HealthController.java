@@ -38,5 +38,11 @@ public class HealthController {
         System.out.println(">>>> HealthController update()");
         return ResponseEntity.status(HttpStatus.OK).body(healthService.read());
     }
+
+    @GetMapping("/delete")
+    public ResponseEntity<Boolean> delete() {
+        System.out.println(">>>> HealthController delete()");
+        return ResponseEntity.status(HttpStatus.OK).body(healthService.delete());
+    }
     
 }
