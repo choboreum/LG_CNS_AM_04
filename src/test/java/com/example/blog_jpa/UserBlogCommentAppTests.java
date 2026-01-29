@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.blog_jpa.blog.dao.BlogRepository;
+import com.example.blog_jpa.blog.domain.dto.BlogRequestDTO;
+import com.example.blog_jpa.blog.domain.entity.BlogEntity;
 import com.example.blog_jpa.comment.dao.CommentRepository;
 import com.example.blog_jpa.user.dao.UserRepository;
 import com.example.blog_jpa.user.domain.dto.UserRequestDTO;
 import com.example.blog_jpa.user.domain.dto.UserResponseDTO;
 import com.example.blog_jpa.user.domain.entity.UserEntity;
-
-import lombok.RequiredArgsConstructor;
 
 @SpringBootTest
 public class UserBlogCommentAppTests {
@@ -52,7 +52,7 @@ public class UserBlogCommentAppTests {
     @Test
     public void userLogin(){
         System.out.println(">>>> userLogin");
-
+        
         UserRequestDTO userRequestDTO = UserRequestDTO.builder()
                                     .email("admin@admin.com")
                                     .password("admin")
@@ -61,5 +61,33 @@ public class UserBlogCommentAppTests {
         userEntity.map(UserResponseDTO::fromEntity)
                 .ifPresent(System.out::println);
     }
+    
+    // 글 작성하기
+    @Test
+    public void createBlogWithUser(){
+        System.out.println(">>>> createBlogWithUser");
 
+        BlogRequestDTO blogRequestDTO = BlogRequestDTO.builder()
+                                                        .title("jpa title")
+                                                        .content("jpa content")
+                                                        .email("admin@admin.com")
+                                                        .build();
+        userRepository.findById(blogRequestDTO.getEmail())
+                        .map(user -> BlogEntity.builder()
+                                                .title(blogRequestDTO.getTitle())
+                                                .content(blogRequestDTO.getContent())
+                                                .author(user)
+                                                .build()
+                            )
+                        .map(blogRepository::save)
+                        .orElseThrow(() -> new RuntimeException("FK Error"));
+        System.out.println(userRepository);
+
+        System.out.println(">>>> createBlogWithUser completed"); 
+    }
+
+    @Test
+    public void createComment(){
+        
+    }
 }
