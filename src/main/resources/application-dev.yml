@@ -17,7 +17,7 @@ spring:
   jpa:
     hibernate: # 테이블 스키마 생성
       # create, create-drop, update, none                                                                  
-      ddl-auto: create
+      ddl-auto: none
     # 콘솔출력
     show-sql: true
     properties:
@@ -28,16 +28,16 @@ spring:
         dialect: org.hibernate.dialect.MariaDBDialect
         format_sql: true
 
-  # redis
-  # docker exec -it redis-container redis-cli
-  data : 
-    redis:
-      host: localhost
-      port: 6379
-      password:
-      timeout: 6000ms
+#   # redis
+#   # docker exec -it redis-container redis-cli
+#   data : 
+#     redis:
+#       host: localhost
+#       port: 6379
+#       password:
+#       timeout: 6000ms
 
-# mybatis settings
-mybatis:
-  mapper-locations: /mappers/**/*Mapper.xml
-  config-location: classpath:/mappers/config/mybatis-config.xml
+# # mybatis settings
+# mybatis:
+#   mapper-locations: /mappers/**/*Mapper.xml
+#   config-location: classpath:/mappers/config/mybatis-config.xml
