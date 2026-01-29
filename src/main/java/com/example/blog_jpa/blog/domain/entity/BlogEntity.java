@@ -1,5 +1,9 @@
 package com.example.blog_jpa.blog.domain.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.example.blog_jpa.comment.domain.entity.CommentEntity;
 import com.example.blog_jpa.user.domain.entity.UserEntity;
 
 import jakarta.persistence.Column;
@@ -10,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,8 +39,10 @@ public class BlogEntity {
     private String content;
 
     // 외래키 설정 :entity 끼리의 관계
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false) //optional : null을 허용하지 않겠다라는 의미
     @JoinColumn(name = "email")
     private UserEntity author;
 
+    @OneToMany(mappedBy = "blog", orphanRemoval = false)
+    private List<CommentEntity> comments = new ArrayList<>();
 }
