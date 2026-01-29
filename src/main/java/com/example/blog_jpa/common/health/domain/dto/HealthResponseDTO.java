@@ -15,7 +15,7 @@ public class HealthResponseDTO {
     private Long id;
     private String message;
 
-    public static HealthResponseDTO fromEnitity(HealthEntity healthEntity){
+    public static HealthResponseDTO fromEntity(HealthEntity healthEntity){
         return HealthResponseDTO.builder()
                                 .id(healthEntity.getId())
                                 .message(healthEntity.getMessage())

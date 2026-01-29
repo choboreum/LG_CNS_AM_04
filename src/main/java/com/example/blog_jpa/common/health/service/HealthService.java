@@ -21,7 +21,7 @@ public class HealthService {
         //insert~
         HealthEntity healthEntity = healthRepository.save(HealthEntity.builder().message("ok").build());
 
-        HealthResponseDTO healthResponseDTO = HealthResponseDTO.fromEnitity(healthEntity);
+        HealthResponseDTO healthResponseDTO = HealthResponseDTO.fromEntity(healthEntity);
         return healthResponseDTO;
     }
 
@@ -32,7 +32,7 @@ public class HealthService {
         HealthEntity healthEntity = healthRepository.findById(1L) //findby기본키
                                                     .orElseThrow(()-> new RuntimeException("Read Fail"));
 
-        HealthResponseDTO healthResponseDTO = HealthResponseDTO.fromEnitity(healthEntity);
+        HealthResponseDTO healthResponseDTO = HealthResponseDTO.fromEntity(healthEntity);
         return healthResponseDTO;
     }
 
@@ -54,7 +54,7 @@ public class HealthService {
 
         healthEntity.setMessage("fail");
         HealthEntity result = healthRepository.save(healthEntity);
-        HealthResponseDTO healthResponseDTO = HealthResponseDTO.fromEnitity(result);
+        HealthResponseDTO healthResponseDTO = HealthResponseDTO.fromEntity(result);
         return healthResponseDTO;
     }
     
