@@ -9,11 +9,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity // 테이블을 의미
 @Table(name = "health_tbl") // 테이블의 네이밍 가능, 없이 사용하면 class명이 테이블명이 됨
 @Builder
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class HealthEntity {

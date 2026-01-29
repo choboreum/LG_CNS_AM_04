@@ -32,5 +32,11 @@ public class HealthController {
         System.out.println(">>>> HealthController read()");
         return ResponseEntity.status(HttpStatus.OK).body(healthService.read());
     }
+
+    @GetMapping("/update")
+    public ResponseEntity<HealthResponseDTO> update() {
+        System.out.println(">>>> HealthController update()");
+        return ResponseEntity.status(HttpStatus.OK).body(healthService.read());
+    }
     
 }

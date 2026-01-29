@@ -35,4 +35,26 @@ public class HealthService {
         HealthResponseDTO healthResponseDTO = HealthResponseDTO.fromEnitity(healthEntity);
         return healthResponseDTO;
     }
+
+    public HealthResponseDTO update(){
+        //Optional<HealthEntity> find = healthRepository.findById(1L);
+        
+        // 옵셔널로 받지 않을때 아래와 같이 사용 가능, entity로 접근 
+        HealthEntity healthEntity = healthRepository.findById(1L) //findby기본키
+                                                    .orElseThrow(()-> new RuntimeException("Read Fail"));
+
+        /* 
+        // HealthEnitity.java에 @Setter가 없을 경우
+        HealthEntity updated = healthEntity.builder()
+                                            .id(healthEntity.getId())
+                                            .message("fail")
+                                            .build();
+        healthRepository.save(updated);
+        */
+
+        healthEntity.setMessage("fail");
+        HealthEntity result = healthRepository.save(healthEntity);
+        HealthResponseDTO healthResponseDTO = HealthResponseDTO.fromEnitity(result);
+        return healthResponseDTO;
+    }
 }
