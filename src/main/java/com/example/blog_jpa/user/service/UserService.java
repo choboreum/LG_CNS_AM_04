@@ -33,7 +33,7 @@ public class UserService {
 
     //token + redis 의존성 주입
     private final JwtProvider jwtProvider;
-    private final RefreshTokenService RefreshTokenService;
+    private final RefreshTokenService refreshTokenService;
 
     @Transactional
     public UserResponseDTO join(UserRequestDTO userRequestDTO){
@@ -62,7 +62,7 @@ public class UserService {
         String rt = jwtProvider.createRT(userEntity.getEmail());
         
         System.out.println(">>>> 3. userRepository RT 토큰 redis 저장");
-        RefreshTokenService.saveToken(userEntity.getEmail(), rt);
+        refreshTokenService.saveToken(userEntity.getEmail(), rt);
 
         map.put("response", UserResponseDTO.fromEntity(userEntity));
         //map.put("access", "jwt-access-token");
@@ -71,5 +71,12 @@ public class UserService {
         map.put("refresh", rt);
         
         return map;
+    }
+
+    public void logout(String accessToken){
+        System.out.println(">>>> userService logout()");
+
+        String email = jwtProvider.getUserEmailFromToken(accessToken);
+        refreshTokenService.deleteToken(email);
     }
 }

@@ -36,7 +36,8 @@ public class JwtFilter implements Filter {
     private static final List<String> WHITE_LIST_PATH = List.of(
         "/swagger-ui/**",
         "/v3/api-docs/**",
-        "/users/**"
+        "/users/join",
+        "/users/login"
     );
 
     // 토큰없이 접근 가능한 endpoint인지 아닌지 판단
@@ -78,7 +79,7 @@ public class JwtFilter implements Filter {
         }
 
         // header, token 검증을 해서 통과 또는 리젝
-        String autoHeader = req.getHeader("Aurhorization");
+        String autoHeader = req.getHeader("Authorization");
         System.out.println(">>>> JwtFilter autoHeader : " + autoHeader);
         if(autoHeader == null || !autoHeader.startsWith("Bearer ")){
             System.out.println(">>>> JwtFilter Not AutoHeader : ");

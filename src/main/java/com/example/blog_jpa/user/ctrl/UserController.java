@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -102,5 +103,13 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK)
                             .headers(headers)
                             .body((UserResponseDTO)(map.get("response")));
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(@RequestHeader("Authorization") String authorization){
+        System.out.println(">>>> user service logout header : " + authorization);
+        String accessToken = authorization.replace("Bearer ", "");
+        userService.logout(accessToken);
+        return ResponseEntity.noContent().build();
     }
 }
