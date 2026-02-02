@@ -66,16 +66,28 @@ const BlogIndex = () => {
         }
     }
 
+    const logoutHandler = async() => {
+        console.log("logoutHandler >>>> ")
+
+        try{
+            const response = await api.post(`/users/logout`, null, {
+                headers: {Authorization: at ? at : ""}
+            })
+            console.log(response);
+            
+            localStorage.removeItem("token");
+            localStorage.removeItem("access_token");
+            console.log('token remove >>>>');
+
+            moveUrl('/');
+        } catch(err) {
+            console.log("logoutHandler error : ", err)
+        }
+    }
+
     useEffect(() =>{
         loadDate();
     },[]); // 마운트 될 때 실행
-
-    const logoutHandler = () => {
-        console.log("logoutHandler >>>> ")
-        localStorage.removeItem("token");
-        moveUrl('/');
-        console.log('token remove >>>>')
-    }
 
     return(
         <Wrapper>
