@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,6 +34,8 @@ public class UserController {
     
     // Service 의존성 주입
     private final UserService userService;
+    // 회원가입 시 암호를 해싱ㅊ리 하기 위해서(SecurityConfig)
+    private final PasswordEncoder passwordEncoder;
 
     // join
     // status code: 201
@@ -57,7 +60,11 @@ public class UserController {
         ) @RequestBody UserRequestDTO userRequestDTO){ //json을 dto로 변환
         System.out.println(">>>> BlogController join() \n    userRequestDTO : " + userRequestDTO);
 
+
+        // 패스워드 해싱 작업을 추가
+        userRequestDTO.setPassword(passwordEncoder.encode(userRequestDTO.getPassword()));
         UserResponseDTO userResponseDTO = userService.join(userRequestDTO);
+        
         if(userResponseDTO != null){
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } else {

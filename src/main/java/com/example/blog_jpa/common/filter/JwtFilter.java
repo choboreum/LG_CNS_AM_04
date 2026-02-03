@@ -20,7 +20,8 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@Component
+//jwt version
+//@Component
 public class JwtFilter implements Filter {
     @Value("${jwt.secret}")
     private String secret;
