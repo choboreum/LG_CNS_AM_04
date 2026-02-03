@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +36,9 @@ public class UserService {
     private final JwtProvider jwtProvider;
     private final RefreshTokenService refreshTokenService;
 
+    // PasswordEncoder
+    private final PasswordEncoder passwordEncoder;
+
     @Transactional
     public UserResponseDTO join(UserRequestDTO userRequestDTO){
         System.out.println(">>>> userRepository join");
@@ -52,11 +56,27 @@ public class UserService {
         Map<String, Object> map = new HashMap<>();
 
         System.out.println(">>>> 1. userRepository login 사용자 조회");
+        /*
+        // 평문버전 암호화 
         UserEntity userEntity = userRepository.findByEmailAndPassword(userRequestDTO.getEmail(), userRequestDTO.getPassword())
                                             .orElseThrow(
                                                 () -> new RuntimeException(">>>> UserService login 실패!!!!")
                                             );
-        
+        */
+
+        // 해싱버전 암호화
+        UserEntity userEntity = userRepository.findById(userRequestDTO.getEmail())
+                                            .orElseThrow(()-> new RuntimeException("Not Found!"));
+        // 평문과 인코드 비교
+        if(!passwordEncoder.matches(userRequestDTO.getPassword(), userEntity.getPassword())){
+            throw new RuntimeException("Password Not Matched!");
+        }
+
+
+
+
+
+
         System.out.println(">>>> 2. userRepository login 토큰 설정");
         String at = jwtProvider.createAT(userEntity.getEmail());
         String rt = jwtProvider.createRT(userEntity.getEmail());
