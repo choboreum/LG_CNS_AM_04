@@ -6,6 +6,7 @@ import java.util.List;
 import com.example.blog_jpa.comment.domain.entity.CommentEntity;
 import com.example.blog_jpa.user.domain.entity.UserEntity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -43,6 +44,20 @@ public class BlogEntity {
     @JoinColumn(name = "email")
     private UserEntity author;
 
+    /* 
+    // 연관댓글 삭제 X
     @OneToMany(mappedBy = "blog", orphanRemoval = false)
     private List<CommentEntity> comments = new ArrayList<>();
+    */
+   
+    //* 
+    // 연관댓글 삭제 O
+    @OneToMany(mappedBy = "blog", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CommentEntity> comments = new ArrayList<>();
+    //*/
+
+    public void update(String title, String content){
+        this.title = title;
+        this.content = content;
+    }
 }
