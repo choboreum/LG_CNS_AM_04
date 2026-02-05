@@ -55,7 +55,8 @@ public class SecurityConfig {
                 .requestMatchers("/swagger-ui/**",
                                 "/v3/api-docs/**",
                                 "/users/join",
-                                "/users/login" ).permitAll() // 해당 패턴(경로)는 누구나 접근이 가능하다
+                                "/users/login",
+                                "/openai/**").permitAll() // 해당 패턴(경로)는 누구나 접근이 가능하다
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 // .requestMatchers("").authenticated() // 인증이 필요한 endpoint
                 .requestMatchers("/admin/**").hasRole("ADMIN")
