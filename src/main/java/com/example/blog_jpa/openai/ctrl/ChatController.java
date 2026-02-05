@@ -11,6 +11,7 @@ import com.example.blog_jpa.openai.service.ChatService;
 import com.example.blog_jpa.openai.service.MsgService;
 
 import lombok.RequiredArgsConstructor;
+import reactor.core.publisher.Mono;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,9 +37,16 @@ public class ChatController {
 
     @PostMapping("/ask")
     public ResponseEntity<MsgResponseDTO> ask(@RequestBody MsgRequestDTO msgRequestDTO) {
-        System.out.println("ChatController chat");
+        System.out.println("ChatController chat ask version");
 
         return ResponseEntity.ok().body(msgService.ask(msgRequestDTO));
+    }
+    
+    @PostMapping("/generate")
+    public Mono<MsgResponseDTO> genMsg(@RequestBody MsgRequestDTO msgRequestDTO) {
+        System.out.println("ChatController chat genMsg version");
+
+        return msgService.genMsg(msgRequestDTO);
     }
     
 }
