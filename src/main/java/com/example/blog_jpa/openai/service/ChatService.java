@@ -20,6 +20,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+// open api 2 gen endpoint
 @Service
 public class ChatService {
     @Value("${spring.ai.openai.model}")

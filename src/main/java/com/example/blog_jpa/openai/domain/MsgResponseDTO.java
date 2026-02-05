@@ -11,7 +11,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class MsgRequestDTO {
-    private String message;
+public class MsgResponseDTO {
+    private String answer;
 
 }

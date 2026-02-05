@@ -5,7 +5,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.blog_jpa.openai.domain.ChatResponseDTO;
+import com.example.blog_jpa.openai.domain.MsgRequestDTO;
+import com.example.blog_jpa.openai.domain.MsgResponseDTO;
 import com.example.blog_jpa.openai.service.ChatService;
+import com.example.blog_jpa.openai.service.MsgService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class ChatController {
     
     private final ChatService chatService;
+    private final MsgService msgService;
 
     @PostMapping("/chat")
     public ResponseEntity<ChatResponseDTO> chat(@RequestParam(name="weather") String weather, 
@@ -28,6 +32,13 @@ public class ChatController {
         chatService.recommend(weather, location);
         
         return ResponseEntity.ok().body(chatService.recommend(weather, location));
+    }
+
+    @PostMapping("/ask")
+    public ResponseEntity<MsgResponseDTO> ask(@RequestBody MsgRequestDTO msgRequestDTO) {
+        System.out.println("ChatController chat");
+
+        return ResponseEntity.ok().body(msgService.ask(msgRequestDTO));
     }
     
 }
