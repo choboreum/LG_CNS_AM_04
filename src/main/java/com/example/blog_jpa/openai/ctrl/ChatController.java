@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.blog_jpa.openai.domain.ChatResponseDTO;
 import com.example.blog_jpa.openai.domain.MsgRequestDTO;
 import com.example.blog_jpa.openai.domain.MsgResponseDTO;
+import com.example.blog_jpa.openai.domain.QuizResponseDTO;
 import com.example.blog_jpa.openai.service.ChatService;
 import com.example.blog_jpa.openai.service.MsgService;
 
@@ -47,6 +48,13 @@ public class ChatController {
         System.out.println("ChatController chat genMsg version");
 
         return msgService.genMsg(msgRequestDTO);
+    }
+    
+    @PostMapping("/quiz")
+    public ResponseEntity<QuizResponseDTO> question(@RequestParam(name="subject") String subject) {
+        System.out.println("ChatController chat question version");
+
+        return ResponseEntity.ok().body(chatService.question(subject));
     }
     
 }

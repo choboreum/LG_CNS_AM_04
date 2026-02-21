@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.example.blog_jpa.openai.domain.ChatResponseDTO;
+import com.example.blog_jpa.openai.domain.QuizResponseDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -99,7 +100,7 @@ public class ChatService {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        System.out.println(">>>> requestJson : " + requestJson);   
+        System.out.println(">>>> [ChatResponseDTO] requestJson : " + requestJson);   
 
         Request request = new Request.Builder()
                                     .url(url)
@@ -113,25 +114,97 @@ public class ChatService {
         String responseJson = null;
         try {
             response = okHttpClient.newCall(request).execute();
-            System.out.println(">>>> response : " + response);
+            System.out.println(">>>> [ChatResponseDTO] response : " + response);
             
             responseJson = response.body().string();
-            System.out.println(">>>> responseJson : " + responseJson);
+            System.out.println(">>>> [ChatResponseDTO] responseJson : " + responseJson);
             
             JsonNode node = objectMapper.readTree(responseJson);
-            System.out.println(">>>> node : " + node);
+            System.out.println(">>>> [ChatResponseDTO] node : " + node);
             
             String exr = node.at("/choices/0/message/content")//choices는 배열이기 때문에 인덱스가 필요
                             .asText();
-            System.out.println(">>>> exr : " + exr);
+            System.out.println(">>>> [ChatResponseDTO] exr : " + exr);
                 
             return objectMapper.readValue(exr, ChatResponseDTO.class);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     
+        return null;
+    }
+
+    public QuizResponseDTO question(String subject){
+        System.out.println(">>>> ChatService question()");
+        System.out.println(" param : " + subject);
+
+        String prompt = """
+            너는 멋진 인공지능이고, 국가공인 문제 출제 위원 전문가야.
+            너의 전공 분야는 %s 문제 출제 전공이야.
+            아래 규칙을 반드시 지켜줘.
+            1. 무조건 json 형식으로 대답해.
+            2. 다른 문장이나 설명없이 json으로만 출력해.
+            3. 3개 퀴즈문제를 만들어야해
+            4. ` 쓰지마
+
+            출력 예시)
+            {
+                "quiz" : [
+                    {
+                        "question" : "<문제내용>",
+                        "option" : ["<보기1>","<보기2>","<보기3>","<보기4>"],
+                        "answer" : "<정답>",
+                        "desc" : "<해설>"
+                    }
+                ]
+            }
+        """.formatted(subject);
+
+        Map<String, Object> systemRole = new HashMap<>();
+        systemRole.put("role", "system");
+        systemRole.put("content", "너는 국가공인 문제 출제 위원 전문가야");
+
+        Map<String, Object> userRole = new HashMap<>();
+        userRole.put("role", "user");
+        userRole.put("content", prompt);
+
+        Map<String, Object> message = new HashMap<>();
+        message.put("model", model);
+        message.put("messages", List.of(systemRole, userRole));
+
+        String requestJson = null;
+        try{
+            requestJson = objectMapper.writeValueAsString(message);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        System.out.println(">>>> [QuizResponseDTO] requestJson : " + requestJson);
+        
+        Request request = new Request.Builder()
+                                    .url(url)
+                                    .header("Authorization", "Bearer "+key)
+                                    .header("Content-Type", "application/json")
+                                    .post(RequestBody.create(requestJson, MediaType.parse("application/json")))
+                                    .build();
+        Response response = null;
+        String responseJson = null;
+        try{
+            response = okHttpClient.newCall(request).execute();
+            System.out.println(">>>> [QuizResponseDTO] response : " + response);
+            responseJson = response.body().string();
+            System.out.println(">>>> [QuizResponseDTO] responseJson : " + responseJson);
+            
+            JsonNode node = objectMapper.readTree(responseJson);
+            String exr = node.at("/choices/0/message/content").asText();
+            System.out.println(">>>> [QuizResponseDTO] exr : " + exr);
+
+            return objectMapper.readValue(exr, QuizResponseDTO.class);
+
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+
         return null;
     }
 }
