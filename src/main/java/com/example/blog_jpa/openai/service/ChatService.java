@@ -6,7 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.example.blog_jpa.openai.domain.ChatResponseDTO;
 import com.example.blog_jpa.openai.domain.QuizResponseDTO;
@@ -23,6 +27,7 @@ import okhttp3.Response;
 
 // open api 2 gen endpoint
 @Service
+@RequiredArgsConstructor
 public class ChatService {
     @Value("${spring.ai.openai.model}")
     private String model;
@@ -33,6 +38,8 @@ public class ChatService {
 
     private OkHttpClient okHttpClient = new OkHttpClient();
     private ObjectMapper objectMapper = new ObjectMapper();
+    // chatbot
+    private RestTemplate restTemplate = new RestTemplate();
 
     public ChatResponseDTO recommend(String weather, String location){
         System.out.println(">>>> ChatService recommend()");
@@ -206,5 +213,35 @@ public class ChatService {
         }
 
         return null;
+    }
+
+    public String chatbot(String message){
+        System.out.println(">>>> chatbot service message");
+        System.out.println(" param : " + message);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(key);
+        headers.setContentType(org.springframework.http.MediaType.APPLICATION_JSON);
+        
+        // Response API Body
+        Map<String, Object> body = Map.of(
+            "model", model,
+            "messages", List.of(
+                Map.of("role", "system", "content", "your role is a helpful assistant"),
+                Map.of("role", "user", "content", message)
+            )
+        );
+        HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers);
+        
+        // open ai 요청
+        ResponseEntity<Map> response = restTemplate.postForEntity(url, request, Map.class);
+        
+        // 응답 추출
+        System.out.println(">>>> response : " + response);
+        List<Map<String, Object>> choices = (List<Map<String, Object>>)response.getBody().get("choices");
+
+        //content 추출
+        Map<String, Object> msg = (Map<String, Object>)choices.get(0).get("message");
+        return (String)msg.get("content");
     }
 }

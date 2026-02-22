@@ -2,6 +2,7 @@ package com.example.blog_jpa.openai.ctrl;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.blog_jpa.openai.domain.ChatResponseDTO;
@@ -11,7 +12,10 @@ import com.example.blog_jpa.openai.domain.QuizResponseDTO;
 import com.example.blog_jpa.openai.service.ChatService;
 import com.example.blog_jpa.openai.service.MsgService;
 
+import lombok.Builder;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import reactor.core.publisher.Mono;
 
 import org.springframework.http.ResponseEntity;
@@ -57,4 +61,27 @@ public class ChatController {
         return ResponseEntity.ok().body(chatService.question(subject));
     }
     
+    
+    @PostMapping("/chatbot")
+    public ChatResponse chatbot(@RequestBody ChatRequest request) {
+        System.out.println("open ai ctrl path : /chatbot");
+
+        return ChatResponse.builder() 
+                            .reply( chatService.chatbot( request.getMessage() ) )
+                            .build();
+    }
+    
+    @Builder
+    @Getter
+    @ToString
+    public static class ChatRequest{
+        private String message;
+    }
+
+    @Builder
+    @Getter
+    @ToString
+    public static class ChatResponse{
+        private String reply;
+    }
 }
