@@ -21,7 +21,11 @@ const BlogCommentItem = ({comment, commentDeleteHandler}) => {
         {comment.content}
       </ContentText>
       <Button title={"삭제"} 
-              onClick={() =>commentDeleteHandler(comment.id)} //comment의 id는 comment의 식별값이기 떄문에 blogId가 필요없다.
+              onClick={() =>
+                {console.log("클릭 시점 데이터:", comment) // 클릭했을 때 전체 객체 출력
+                console.log("클릭 시점 데이터 id:", comment.commentId) // 클릭했을 때 전체 객체 출력
+                commentDeleteHandler(comment.commentId)}
+              } //comment의 id는 comment의 식별값이기 떄문에 blogId가 필요없다.
       />
     </Wrapper>
   )

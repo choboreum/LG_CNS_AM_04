@@ -191,6 +191,8 @@ const BlogRead = () => {
       await api.post('/blogs/comments/write',{
           content : content,
           blogId : blogId,
+        }, {
+          headers: {Authorization: at ? at : ""}
         })
         .then((response)=>{ // 데이터를 가져온 후 해당 데이터를 state로 변경
           console.log(response);
@@ -208,20 +210,23 @@ const BlogRead = () => {
     }
 
     // 댓글 삭제 이벤트
-    const commentDeleteHandler = async(id) => { //해당 id는 comment의 식별값인 id
-      console.log('commentDeleteHandler id >>>>', id)
+    const commentDeleteHandler = async(commentId) => { //해당 id는 comment의 식별값인 id
+      console.log('commentDeleteHandler commentId >>>>', commentId)
       /**
        * 전달 받은 식별값으로 해당 댓글을 삭제하고, 
        * 댓글ui만 리랜더링
        */
-      await api.delete(`/comments/${id}`)
+      await api.delete(`/blogs/comments/delete/${commentId}`, {
+          headers: {Authorization: at ? at : ""}
+        })
         .then((response) => {
           console.log('commentDeleteHandler response >>>>', response)
-          if(response.status === 200){
-            setComments( comments.filter((e) => e.id != id ) ) //filter사용 후 이벤트가 일어난 id와 같지 않은 남은 id들의 리스트들만 setComments에 담기
+          if(response.status === 204){
+            setComments( comments.filter((e) => e.commentId !== commentId ) ) //filter사용 후 이벤트가 일어난 commentId와 같지 않은 남은 commentId들의 리스트들만 setComments에 담기
           }
         })
         .catch((err) => {
+          console.log('commentDeleteHandler comment commentId >>>>', commentId)
           console.log('commentDeleteHandler err >>>>', err)
         })
     }
