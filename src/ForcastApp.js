@@ -1,6 +1,7 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import ForcastPage from './fetures/forecast/ForcastPage';
 import ForcastList from './fetures/forecast/ForcastList';
+import AiChatPage from './fetures/forecast/AiChatPage';
 
 const ForcastApp= () => {
     return(
@@ -10,6 +11,7 @@ const ForcastApp= () => {
             <Routes>
                 <Route path='/' element={ <ForcastPage />} />
                 <Route path='/list' element={ <ForcastList />} />
+                <Route path='/ai' element={ <AiChatPage />} />
             </Routes>
         </BrowserRouter>
         </>

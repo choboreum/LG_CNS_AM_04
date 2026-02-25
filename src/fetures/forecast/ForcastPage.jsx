@@ -37,18 +37,18 @@ const ForcastPage = () => {
             beach_num: beach_num
         })
         .then( res =>{
-            console.log("response : " + res)
+            console.log("response : ", res)
             moveUrl("/list", {
                 state : res.data
             })
         })
         .catch( err =>{
-            console.log("err : " + err);
+            console.log("err : ", err);
         })
     }
 
     const moveChat = () => {
-
+        moveUrl("/ai")
     }
 
     return (
@@ -67,7 +67,7 @@ const ForcastPage = () => {
                     onChange={(e) => setBeach_num(e.target.value)} /><br/>
 
             <button onClick={(e) => forcastHandler(base_time,base_date,beach_num)}>예보정보 요청</button>
-            
+            <button onClick={(e) => moveChat()}>메시지 작성</button> 
         </div>
     );
 }

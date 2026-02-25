@@ -13,11 +13,15 @@ import UserPage from './page/redering/UserPage';
 import BlogApp from './BlogApp';
 import ContextApp from './ContextApp';
 import WeatherPage from './page/openapi/WeatherPage';
+import ForcastApp from './ForcastApp';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <>
+    {/* // openAPI 적용 예) */}
+    <ForcastApp />
+    
     {/* // openAPI 적용 예) */}
     {/* <WeatherPage /> *}
 
@@ -25,7 +29,7 @@ root.render(
     {/* <ContextApp /> */}
 
     {/* // Blog 적용 예) */}
-    <BlogApp />
+    {/* <BlogApp /> */}
   </>
 )
 
