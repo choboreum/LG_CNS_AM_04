@@ -1,0 +1,22 @@
+# blue-green 배포 전략을 위해서 service 별도로 만들고
+# selector version을 추가하여 어떤 deployment를 선택할 것인지
+
+
+# core service setting
+# core group : pod, service, ConfigMap, Secret, namespace
+apiVersion: v1 
+kind: Service
+metadata:
+  name: react-service
+  namespace: lgcns
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: react
+    # deployment 선택
+    version: blue
+
+

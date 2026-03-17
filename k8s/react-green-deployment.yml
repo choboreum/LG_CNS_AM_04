@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-deployment
+  namespace: lgcns
+
+spec:
+  # 자원공간의 낭비를 방지하고 관리의 편의성을 제공해주는 옵션!!!
+  revisionHistoryLimit: 2
+
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react
+      version: green
+
+  template:
+    metadata:
+      labels:
+        app: react
+        version: green
+
+    spec:
+      # docker container 
+      containers:
+        - name: react-container
+
+          # ecr 경로
+          image: 065656773560.dkr.ecr.ap-northeast-2.amazonaws.com/react-boreum-frontend:latest
+
+          ports:
+          - containerPort: 80
+
+

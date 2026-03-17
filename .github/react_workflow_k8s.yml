@@ -1,0 +1,63 @@
+name: react deploy to eks
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  AWS_REGION: ap-south-1
+
+jobs:
+  #job name : 자유롭게 명세 가능
+  build-and-deploy:
+    # runner 
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout github
+        # 명령어
+        uses: actions/checkout@v2
+
+      # aws인증
+      - name: aws configure
+        uses: aws-actions/configure-aws-credentials@v4
+        # 추가적인 작업
+        with:
+          aws-access-key-id: ${{secrets.AWS_KEY}}
+          aws-secret-access-key: ${{secrets.AWS_SECRET}}
+          aws-region: ${{env.AWS_REGION}}
+
+      # aws - ecr login
+      - name: aws ecr login
+        uses: aws-actions/amazon-ecr-login@v2
+
+      # docker image build and push
+      - name: image build and push docker image to ecr
+        env:
+          REGISTRY: 447839931800.dkr.ecr.ap-south-1.amazonaws.com/react-boreum-frontend
+          REPOSITORY: react-boreum-frontend
+          IMAGE_TAG: latest
+        run: |
+          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f Dockerfile .
+          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+
+      # kubectl install
+      - name: install kubectl
+        uses: azure/setup-kubectl@v3
+        with: 
+          version: "v1.34.1"
+
+      # kubectl config
+      - name: aws eks cluster update
+        run: aws eks update-kubeconfig --region ap-south-1 --name lgcns-boreum-cluster
+
+      # 배포
+      - name: kubectl apply
+        run: | 
+          kubectl apply -f k8s/react-blue-deployment.yml
+          kubectl apply -f k8s/react-green-deployment.yml
+          kubectl apply -f k8s/react-service.yml
+          kubectl apply -f k8s/react-ingress.yml
+
+        # kubectl rollout restart deployment react_deployment -n lgcns
+  
