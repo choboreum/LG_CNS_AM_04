@@ -34,7 +34,7 @@ jobs:
       # docker image build and push
       - name: image build and push docker image to ecr
         env:
-          REGISTRY: 447839931800.dkr.ecr.ap-south-1.amazonaws.com/react-boreum-frontend
+          REGISTRY: 447839931800.dkr.ecr.ap-south-1.amazonaws.com
           REPOSITORY: react-boreum-frontend
           IMAGE_TAG: latest
         run: |
