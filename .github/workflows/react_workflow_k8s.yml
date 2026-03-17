@@ -58,6 +58,6 @@ jobs:
           kubectl apply -f k8s/react-green-deployment.yml
           kubectl apply -f k8s/react-service.yml
           kubectl apply -f k8s/react-ingress.yml
-
-        # kubectl rollout restart deployment react_deployment -n lgcns
+#          kubectl rollout restart deployment react-blue-deployment -n lgcns
+#          kubectl rollout restart deployment react-green-deployment -n lgcns
   
